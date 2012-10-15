@@ -1,0 +1,9 @@
+Flask==0.9
+Flask-Script==0.3.3
+gunicorn==0.14.6
+greenlet==0.4
+pyjade==1.5
+supervisor==3.0a12
+pyinotify==0.9.3
+gevent==0.13.7
+ipython==0.13
