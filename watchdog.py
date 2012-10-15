@@ -6,6 +6,8 @@ import os
 import subprocess
 from config import config
 
+from seer.tools import fetch
+
 
 def version():
     cmd = 'git describe'
@@ -65,3 +67,6 @@ def build_playground():
         _mkdir(wpath)
         for wd in config.WORKER_DIRS:
             _mkdir(os.path.join(wpath, wd))
+
+def fetch_kandianshi(channel):
+    return fetch.kandianshi(int(channel))

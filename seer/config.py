@@ -3,3 +3,6 @@
 
 class DefaultConfig(object):
     DEBUG = True
+
+    SQLALCHEMY_DATABASE_URI = "mysql://seer:burning@localhost/seer_d"
+    SQLALCHEMY_ECHO = False

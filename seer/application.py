@@ -2,9 +2,12 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask
+from flask_admin.contrib import sqlamodel
 
 from seer import views
 from seer.config import DefaultConfig
+from seer.extensions import db, admin
+from seer.models.program import Program
 
 __all__ = ['create_app']
 
@@ -24,8 +27,6 @@ def create_app(config=None, app_name=None, modules=None):
     configure_app(app, config)
 
     configure_extensions(app)
-    configure_before_handlers(app)
-    configure_template_filters(app)
     configure_modules(app, modules)
 
     return app
@@ -38,15 +39,11 @@ def configure_app(app, config):
 
 def configure_extensions(app):
     app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
-    pass
+    db.init_app(app)
+    admin.add_view(sqlamodel.ModelView(Program, db.session))
+    #admin.add_view(sqlamodel.GalleryManager(name='Name', category='Cats'))
+    admin.init_app(app)
 
 def configure_modules(app, modules):
     for module, url_prefix in modules:
-        #app.register_module(module, url_prefix=url_prefix)
         app.register_blueprint(module, url_prefix=url_prefix)
-
-def configure_before_handlers(app):
-    pass
-
-def configure_template_filters(app):
-    pass

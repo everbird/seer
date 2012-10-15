@@ -43,3 +43,12 @@ shell:
 
 build_var:
 	@./manage.py build_var
+
+connect_db:
+	mysql -useer -pburning -Dseer_d
+
+create_db:
+	@./manage.py create_all
+
+drop_db:
+	@./manage.py drop_all
