@@ -6,7 +6,7 @@ import os
 import subprocess
 from config import config
 
-from seer.tools import fetch
+from seer.tools import fetch, init_channels
 
 
 def version():
@@ -70,3 +70,11 @@ def build_playground():
 
 def fetch_kandianshi(channel):
     return fetch.kandianshi(int(channel))
+
+def init_db():
+    init_channels.init()
+
+def fetch_all():
+    for c, name in init_channels.CHANNEL_DATA.iteritems():
+        print 'feching %s: %s' % (c, name)
+        fetch.kandianshi(c)

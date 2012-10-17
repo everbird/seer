@@ -45,5 +45,5 @@ class Program(db.Model):
     name = db.Column(db.Unicode(100), server_default='', nullable=False)
     length = db.Column(db.Integer)
     datenum = db.Column(db.Integer, nullable=False)
-    start_dt = db.Column(db.DateTime, default=datetime.now())
-    update_dt = db.Column(db.DateTime, default=datetime.now())
+    start_dt = db.Column(db.DateTime, default=datetime.now)
+    update_dt = db.Column(db.DateTime, default=datetime.now)

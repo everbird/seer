@@ -50,6 +50,14 @@ def make_shell_context():
 def fetch_kandianshi(channel):
     return watchdog.fetch_kandianshi(channel)
 
+@manager.command
+def fetch_all():
+    return watchdog.fetch_all()
+
+@manager.command
+def init_db():
+    return watchdog.init_db()
+
 manager.add_option('-c', '--config',
                    dest="config",
                    required=False,

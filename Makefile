@@ -52,3 +52,9 @@ create_db:
 
 drop_db:
 	@./manage.py drop_all
+
+init_db:
+	@./manage.py init_db
+
+fetch_all:
+	@./manage.py fetch_all
