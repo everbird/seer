@@ -25,6 +25,7 @@ stopweb:
 	@#sudo kill -QUIT `cat /home/everbird/var/8100/run/nginx-8100.pid` || echo -n " not running"
 
 restartweb: stopweb startweb
+r: restartweb
 
 tail:
 	tail -n 0 -F `./manage.py var_dir`/log/seer-output-8100.log -F `./manage.py var_dir`/log/gunicorn-error-8100.log

@@ -6,8 +6,9 @@ from flask_admin.contrib import sqlamodel
 
 from seer import views
 from seer.config import DefaultConfig
-from seer.extensions import db, admin
+from seer.extensions import db, admin, manager
 from seer.models.program import Program
+from seer.models.channel import Channel
 
 __all__ = ['create_app']
 
@@ -41,9 +42,14 @@ def configure_extensions(app):
     app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
     db.init_app(app)
     admin.add_view(sqlamodel.ModelView(Program, db.session))
-    #admin.add_view(sqlamodel.GalleryManager(name='Name', category='Cats'))
     admin.init_app(app)
+    manager.init_app(app, flask_sqlalchemy_db=db)
+    configure_api(manager)
 
 def configure_modules(app, modules):
     for module, url_prefix in modules:
         app.register_blueprint(module, url_prefix=url_prefix)
+
+def configure_api(manager):
+    manager.create_api(Program, methods=['GET'])
+    manager.create_api(Channel, methods=['GET'])
