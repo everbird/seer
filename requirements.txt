@@ -12,3 +12,4 @@ gevent==0.13.7
 ipython==0.13
 pyquery==1.2.1
 MySQL-python==1.2.4b5
+Fabric==1.4.3
