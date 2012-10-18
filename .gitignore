@@ -1,0 +1,14 @@
+# Compiled source #
+###################
+*.pyc
+*.pyo
+*.ptlc
+
+# Editor Tmp file #
+###################
+*.swp
+*~
+
+# Project env file #
+###################
+*.project
