@@ -41,7 +41,7 @@ class Program(db.Model):
     query_class = ProgramQuery
 
     id = db.Column(db.Integer, primary_key=True)
-    channel_id = db.Column(db.Integer)
+    channel_id = db.Column(db.Integer, db.ForeignKey('channel.id'))
     name = db.Column(db.Unicode(100), server_default='', nullable=False)
     length = db.Column(db.Integer)
     datenum = db.Column(db.Integer, nullable=False)

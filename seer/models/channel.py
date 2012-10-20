@@ -15,3 +15,4 @@ class Channel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(100), server_default='', nullable=False)
+    programs = db.relationship('Program', backref='channel', lazy='dynamic')
