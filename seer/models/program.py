@@ -47,3 +47,4 @@ class Program(db.Model):
     datenum = db.Column(db.Integer, nullable=False)
     start_dt = db.Column(db.DateTime, default=datetime.now)
     update_dt = db.Column(db.DateTime, default=datetime.now)
+    end_dt = db.Column(db.DateTime, default=datetime.now)

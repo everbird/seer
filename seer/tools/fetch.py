@@ -40,11 +40,15 @@ def kandianshi(channel, datenum=None):
             start = today + delta
             name = _name.strip()
             length = _length.replace('分钟', '').strip()
+            length = int(length) if length.isdigit() else 0
+            during = datetime.timedelta(minutes=length)
+            end = start + during
             datenum = int(start.strftime('%Y%m%d'))
 
             print start, name, length
             p = Program(
                     start_dt=start,
+                    end_dt=end,
                     name=name,
                     length=length,
                     channel_id=channel,
