@@ -52,4 +52,4 @@ def configure_modules(app, modules):
 
 def configure_api(manager):
     manager.create_api(Program, methods=['GET'], results_per_page=None)
-    manager.create_api(Channel, methods=['GET'], results_per_page=None)
+    manager.create_api(Channel, methods=['GET'], results_per_page=None, exclude_columns=['programs'])
