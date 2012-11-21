@@ -6,7 +6,7 @@ import os
 import subprocess
 from config import config
 
-from seer.tools import fetch, init_channels
+from seer.tools import fetch, init_channels, online
 
 
 def version():
@@ -71,6 +71,9 @@ def build_playground():
 def fetch_kandianshi(channel):
     return fetch.kandianshi(int(channel))
 
+def fetch_tvmao(channel):
+    return fetch.tvmao(int(channel))
+
 def init_db():
     init_channels.init()
 
@@ -78,3 +81,6 @@ def fetch_all():
     for c, name in init_channels.CHANNEL_DATA.iteritems():
         print 'feching %s: %s' % (c, name)
         fetch.kandianshi(c)
+
+def do_online():
+    online.online()

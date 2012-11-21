@@ -42,6 +42,7 @@ def configure_extensions(app):
     app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
     db.init_app(app)
     admin.add_view(sqlamodel.ModelView(Program, db.session))
+    admin.add_view(sqlamodel.ModelView(Channel, db.session))
     admin.init_app(app)
     manager.init_app(app, flask_sqlalchemy_db=db)
     configure_api(manager)
@@ -52,4 +53,6 @@ def configure_modules(app, modules):
 
 def configure_api(manager):
     manager.create_api(Program, methods=['GET'], results_per_page=None)
-    manager.create_api(Channel, methods=['GET'], results_per_page=None, exclude_columns=['programs'])
+    manager.create_api(Channel, methods=['GET'], results_per_page=None,
+            exclude_columns=['programs', 'external', 'candidate',
+                'candidate_id'])

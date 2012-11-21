@@ -11,6 +11,7 @@ from pyquery import PyQuery as pq
 
 from seer.application import db
 from seer.models.program import Program
+from seer.models.candidate import CandidateProgram, Candidate
 
 FUNC_ENCODE_UTF8 = lambda x: x.encode('utf-8')
 
@@ -29,6 +30,9 @@ def kandianshi(channel, datenum=None):
     db.session.query(Program).filter_by(channel_id=channel).delete()
     db.session.commit()
 
+    candidate = db.session.query(Candidate)\
+            .filter(Candidate.uid=='kandianshi').one()
+
     trs = d('#zhongbu table table tr')
     for tr in trs[1:]:
         tds = tr.findall('td')
@@ -46,14 +50,64 @@ def kandianshi(channel, datenum=None):
             datenum = int(start.strftime('%Y%m%d'))
 
             print start, name, length
-            p = Program(
+            cp = CandidateProgram(
+                    candidate=candidate,
                     start_dt=start,
                     end_dt=end,
                     name=name,
                     length=length,
                     channel_id=channel,
                     datenum=datenum)
-            db.session.add(p)
+            db.session.add(cp)
+
+            db.session.commit()
+
+    print 'done.'
+
+def tvmao(channel, datenum=None):
+    year1900 = datetime.datetime(1900, 1, 1)
+    t = datetime.datetime.today()
+    today = datetime.datetime(t.year, t.month, t.day)
+    datenum = datenum or today.strftime('%Y%m%d')
+    url_pattern = 'http://www.kandianshi.com/%d_%s'
+    url=url_pattern % (channel, datenum)
+    print 'connecting:', url
+    d = pq(url=url)
+
+    print 'deleting old data...'
+    db.session.query(Program).filter_by(channel_id=channel).delete()
+    db.session.commit()
+
+    candidate = db.session.query(Candidate)\
+            .filter(Candidate.uid=='tvmao').one()
+
+    trs = d('#zhongbu table table tr')
+    for tr in trs[1:]:
+        tds = tr.findall('td')
+        if len(tds)==3:
+            _start, _name, _length = list(map(FUNC_ENCODE_UTF8,
+                [x.text for x in tds]))
+            _time = datetime.datetime.strptime(_start, '%H:%M')
+            delta = _time - year1900
+            start = today + delta
+            name = _name.strip()
+            length = _length.replace('分钟', '').strip()
+            length = int(length) if length.isdigit() else 0
+            during = datetime.timedelta(minutes=length)
+            end = start + during
+            datenum = int(start.strftime('%Y%m%d'))
+
+            print start, name, length
+            cp = CandidateProgram(
+                    candidate=candidate,
+                    start_dt=start,
+                    end_dt=end,
+                    name=name,
+                    length=length,
+                    channel_id=channel,
+                    datenum=datenum)
+            db.session.add(cp)
+
             db.session.commit()
 
     print 'done.'

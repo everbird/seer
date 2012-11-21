@@ -6,21 +6,7 @@ from datetime import datetime
 from flask_sqlalchemy import BaseQuery
 
 from seer.extensions import db
-
-# Gist from https://gist.github.com/1080563
-# Monkey patch to use UTC+8 timezone
-import pytz
-from sqlalchemy.types import TypeDecorator
-from sqlalchemy import DateTime as SdateTime
-tz = pytz.timezone('Asia/Shanghai')
-class DateTime(TypeDecorator):
-    impl = SdateTime
-
-    def process_bind_param(self, value, engine):
-        return value
-
-    def process_result_value(self, value, engine):
-        return tz.localize(value)
+from seer.helper import DateTime
 
 
 class ProgramQuery(BaseQuery):
@@ -55,14 +41,10 @@ class Program(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     channel_id = db.Column(db.Integer, db.ForeignKey('channel.id'))
+    candidate_id = db.Column(db.Integer, db.ForeignKey('candidate.id'))
     name = db.Column(db.Unicode(100), server_default='', nullable=False)
     length = db.Column(db.Integer)
     datenum = db.Column(db.Integer, nullable=False)
     start_dt = db.Column(DateTime, default=datetime.now)
     update_dt = db.Column(DateTime, default=datetime.now)
     end_dt = db.Column(DateTime, default=datetime.now)
-
-    @property
-    def cn_date(self):
-        import pytz
-        return pytz.timezone('Asia/Shanghai').localize(self.start_dt)

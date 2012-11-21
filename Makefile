@@ -59,3 +59,6 @@ init_db:
 
 fetch_all:
 	@./manage.py fetch_all
+
+online:
+	@./manage.py online

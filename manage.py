@@ -50,6 +50,10 @@ def make_shell_context():
 def fetch_kandianshi(channel):
     return watchdog.fetch_kandianshi(channel)
 
+@manager.option('-n', '--channel', help='Channel id')
+def fetch_tvmao(channel):
+    return watchdog.fetch_tvmao(channel)
+
 @manager.command
 def fetch_all():
     return watchdog.fetch_all()
@@ -57,6 +61,10 @@ def fetch_all():
 @manager.command
 def init_db():
     return watchdog.init_db()
+
+@manager.command
+def online():
+    return watchdog.do_online()
 
 manager.add_option('-c', '--config',
                    dest="config",
