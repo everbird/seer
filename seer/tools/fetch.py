@@ -23,6 +23,17 @@ def kandianshi(channel, datenum=None):
     today = datetime.datetime(t.year, t.month, t.day)
     datenum = datenum or today.strftime('%Y%m%d')
     url_pattern = 'http://www.kandianshi.com/%d_%s'
+
+    ch = db.session.query(Channel).filter(Channel.id==channel).first()
+    if not ch:
+        print 'Channel: %s not exist.' % channel
+        return
+
+    ext = ch.external
+    if not ext.kandianshi_id:
+        print 'No info for channel: %s in kandianshi.' % ch.name.encode('utf-8')
+        return
+
     url=url_pattern % (channel, datenum)
     print 'connecting:', url
     d = pq(url=url)
@@ -83,6 +94,10 @@ def tvmao(channel, datenum=None):
         return
 
     ext = ch.external
+    if not ext.tvmao_tv_id or not ext.tvmao_channel_id:
+        print 'No info for channel: %s in tvmao.' % ch.name.encode('utf-8')
+        return
+
     url=url_pattern % (ext.tvmao_tv_id, ext.tvmao_channel_id)
     print 'connecting:', url
 
@@ -113,7 +128,9 @@ def tvmao(channel, datenum=None):
             datenum = int(start.strftime('%Y%m%d'))
 
             pq(li).find('.green_line,.drama,span.am,span.pm,span.nt').remove()
-            pq(li).children().filter(lambda x: pq(this).text() == u'在线观看').remove()
+            drop_texts = (u'在线看', u'在线观看')
+            pq(li).children()\
+                    .filter(lambda x: pq(this).text() in drop_texts).remove()
 
             _name = FUNC_ENCODE_UTF8(pq(li).text())
             name = _name.strip()
