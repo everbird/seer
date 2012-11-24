@@ -9,6 +9,8 @@ from seer.config import DefaultConfig
 from seer.extensions import db, admin, manager
 from seer.models.program import Program
 from seer.models.channel import Channel
+from seer.models.candidate import Candidate, CandidateProgram
+from seer.models.external import External
 
 __all__ = ['create_app']
 
@@ -43,6 +45,9 @@ def configure_extensions(app):
     db.init_app(app)
     admin.add_view(sqlamodel.ModelView(Program, db.session))
     admin.add_view(sqlamodel.ModelView(Channel, db.session))
+    admin.add_view(sqlamodel.ModelView(CandidateProgram, db.session))
+    admin.add_view(sqlamodel.ModelView(Candidate, db.session))
+    admin.add_view(sqlamodel.ModelView(External, db.session))
     admin.init_app(app)
     manager.init_app(app, flask_sqlalchemy_db=db)
     configure_api(manager)
