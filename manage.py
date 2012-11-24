@@ -25,6 +25,12 @@ def drop_all():
         db.drop_all()
 
 @manager.command
+def drop_all_immeditely():
+    """ Drops all database tables immeditely
+    """
+    db.drop_all()
+
+@manager.command
 def version():
     """ Output current version
     """

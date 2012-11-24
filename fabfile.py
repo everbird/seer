@@ -17,9 +17,9 @@ def update():
 @hosts('rainbow')
 def rebuild():
     puts('Rebuild database...')
-    with cd('/home/everbird/product/seer'):
-        run('make drop_db')
-        run('make create_db')
-        run('make init_db')
-        run('make fetch_all')
-        run('make online')
+    run('cd /home/everbird/product/seer'
+            ' && make drop_db_immeditely'
+            ' && make create_db'
+            ' && make init_db'
+            ' && make fetch_all'
+            ' && make online')

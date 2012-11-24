@@ -54,6 +54,9 @@ create_db:
 drop_db:
 	@./manage.py drop_all
 
+drop_db_immeditely:
+	@./manage.py drop_all_immeditely
+
 init_db:
 	@./manage.py init_db
 
