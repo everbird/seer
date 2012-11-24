@@ -14,3 +14,4 @@ pyquery==1.2.1
 Fabric==1.4.3
 pymysql==0.5
 pytz==2012h
+requests==0.14.2

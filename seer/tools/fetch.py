@@ -7,10 +7,10 @@ from os.path import dirname, abspath
 seer_path = dirname(dirname(abspath(__file__)))
 sys.path.insert(0, seer_path)
 
+import requests
 from pyquery import PyQuery as pq
 
 from seer.application import db
-from seer.models.program import Program
 from seer.models.candidate import CandidateProgram, Candidate
 from seer.models.channel import Channel
 
@@ -85,7 +85,10 @@ def tvmao(channel, datenum=None):
     ext = ch.external
     url=url_pattern % (ext.tvmao_tv_id, ext.tvmao_channel_id)
     print 'connecting:', url
-    d = pq(url=url)
+
+    # Using requests to avoid strange encoding issue of pyquery
+    r = requests.get(url)
+    d = pq(r.text)
 
     candidate = db.session.query(Candidate)\
             .filter(Candidate.uid=='tvmao').one()
