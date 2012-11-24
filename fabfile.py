@@ -10,5 +10,16 @@ def update():
     puts('Update seer...')
     with cd('/home/everbird/product/seer'):
         run('git pull')
+        run('pip install -r requirements.txt')
         run('/home/everbird/.virtualenvs/seer/bin/supervisorctl restart web')
     puts('Updated')
+
+@hosts('rainbow')
+def rebuild():
+    puts('Rebuild database...')
+    with cd('/home/everbird/product/seer'):
+        run('make drop_db')
+        run('make create_db')
+        run('make init_db')
+        run('make fetch_all')
+        run('make online')
