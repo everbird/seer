@@ -80,7 +80,8 @@ def init_db():
 def fetch_all():
     for c, name in init_channels.CHANNEL_DATA.iteritems():
         print 'feching %s: %s' % (c, name)
-        fetch.kandianshi(c)
+        fetch_tvmao(c)
+        fetch_kandianshi(c)
 
 def do_online():
     online.online()

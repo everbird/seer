@@ -27,12 +27,14 @@ def kandianshi(channel, datenum=None):
     print 'connecting:', url
     d = pq(url=url)
 
-    print 'deleting old data...'
-    db.session.query(Program).filter_by(channel_id=channel).delete()
-    db.session.commit()
-
     candidate = db.session.query(Candidate)\
             .filter(Candidate.uid=='kandianshi').one()
+
+    print 'deleting old data...'
+    db.session.query(CandidateProgram)\
+            .filter_by(channel_id=channel, candidate_id=candidate.id)\
+            .delete()
+    db.session.commit()
 
     trs = d('#zhongbu table table tr')
     def _gen():
@@ -85,12 +87,14 @@ def tvmao(channel, datenum=None):
     print 'connecting:', url
     d = pq(url=url)
 
-    print 'deleting old data...'
-    db.session.query(Program).filter_by(channel_id=channel).delete()
-    db.session.commit()
-
     candidate = db.session.query(Candidate)\
             .filter(Candidate.uid=='tvmao').one()
+
+    print 'deleting old data...'
+    db.session.query(CandidateProgram)\
+            .filter_by(channel_id=channel, candidate_id=candidate.id)\
+            .delete()
+    db.session.commit()
 
     lis = d('.pgmain div.epg #pgrow li')
     end = None
