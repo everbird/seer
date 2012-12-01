@@ -3,6 +3,7 @@
 
 
 from seer.extensions import db
+from seer.helper import gen_repr
 
 
 class External(db.Model):
@@ -18,3 +19,6 @@ class External(db.Model):
     kandianshi_id = db.Column(db.Integer)
     tvmao_tv_id = db.Column(db.String(100))
     tvmao_channel_id = db.Column(db.String(100))
+
+    __repr__ = gen_repr(props=['id', 'channel_id', 'kandianshi_id',
+        'tvmao_channel_id'])

@@ -5,6 +5,7 @@
 Helper, or the one who need help
 """
 
+import re
 
 def iunique(iterable):
     seen = set()
@@ -29,3 +30,31 @@ class DateTime(TypeDecorator):
 
     def process_result_value(self, value, engine):
         return tz.localize(value)
+
+def get_repr(obj, props=None, trailing=''):
+    props = props or []
+    valid_types = (str, unicode, int, long)
+
+    def func_print(obj, p):
+        x = getattr(obj, p, '')
+        return x.encode('utf8') if isinstance(x, (str, unicode)) else x
+
+    func_format = lambda o, x: \
+            '%s="%s"' % (x, func_print(o, x))
+    props_repr = ', '.join([func_format(obj, p)
+        for p in props \
+                if hasattr(obj, p) \
+                and isinstance(getattr(obj, p), valid_types)])
+    return '<%s %s %s>' % (obj.__class__.__name__, props_repr,
+            trailing)
+
+def gen_repr(props=None, trailing=''):
+    def f(obj):
+        return get_repr(obj, props=props, trailing=trailing)
+    return f
+
+def normallize_name(name):
+    _name = re.sub(r'(故事片|译制片|回看|直播中)(:|：)(.*)', r'\3', name)
+    _name = _name.strip()
+    _name = re.sub(r'(.*)(\d+)(.+$)', r'\1-\3', _name)
+    return _name

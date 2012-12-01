@@ -6,7 +6,7 @@ from datetime import datetime
 from flask_sqlalchemy import BaseQuery
 
 from seer.extensions import db
-from seer.helper import DateTime
+from seer.helper import DateTime, gen_repr
 
 
 class ProgramQuery(BaseQuery):
@@ -48,3 +48,5 @@ class Program(db.Model):
     start_dt = db.Column(DateTime, default=datetime.now)
     update_dt = db.Column(DateTime, default=datetime.now)
     end_dt = db.Column(DateTime, default=datetime.now)
+
+    __repr__ = gen_repr(props=['id', 'name', 'channel_id'])

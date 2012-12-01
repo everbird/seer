@@ -65,3 +65,6 @@ fetch_all:
 
 online:
 	@./manage.py online
+
+nosy:
+	nosy -c tests/nosy.cfg

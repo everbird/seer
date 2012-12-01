@@ -3,6 +3,7 @@
 
 
 from seer.extensions import db
+from seer.helper import gen_repr
 
 
 class Channel(db.Model):
@@ -17,3 +18,5 @@ class Channel(db.Model):
     name = db.Column(db.Unicode(100), server_default='', nullable=False)
     programs = db.relationship('Program', backref='channel', lazy='dynamic')
     external = db.relationship('External', backref='channel', uselist=False)
+
+    __repr__ = gen_repr(props=['id', 'name'])

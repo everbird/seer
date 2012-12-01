@@ -6,7 +6,7 @@ from datetime import datetime
 from seer.extensions import db
 from seer.models.channel import Channel
 from seer.models.program import Program
-from seer.helper import DateTime
+from seer.helper import DateTime, gen_repr
 
 K_CANDIDATE_KANDIANSHI = 'kandianshi'
 K_CANDIDATE_TVMAO = 'tvmao'
@@ -39,6 +39,8 @@ class Candidate(db.Model):
             backref='candidate',
             lazy='dynamic')
 
+    __repr__ = gen_repr(props=['uid', 'name'])
+
 
 class CandidateProgram(db.Model):
     __tablename__ = 'candidate_program'
@@ -58,6 +60,8 @@ class CandidateProgram(db.Model):
     start_dt = db.Column(DateTime, default=datetime.now)
     update_dt = db.Column(DateTime, default=datetime.now)
     end_dt = db.Column(DateTime, default=datetime.now)
+
+    __repr__ = gen_repr(props=['id', 'name', 'channel_id'])
 
     @property
     def channel(self):
