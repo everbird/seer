@@ -28,3 +28,18 @@ def rebuild():
     vrun('make init_db')
     vrun('make fetch_all')
     vrun('make online')
+
+@hosts('rainbow')
+def upgrade_mapping():
+    puts('Upgrade mapping...')
+    vrun("make mapping")
+
+@hosts('rainbow')
+def apply_mapping():
+    puts('Upgrade mapping...')
+    vrun("make apply")
+
+@hosts('rainbow')
+def restart():
+    puts('Restarting ...')
+    vrun("make restart")

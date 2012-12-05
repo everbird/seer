@@ -18,14 +18,20 @@ clean_tmp:
 startweb:
 	@#sudo nginx -c /home/everbird/workspace/seer/nginx.conf
 	@#gunicorn -c gunicorn_config.py app:app >> `./manage.py var_dir`/log/gunicorn-output-8100.log 2>&1 &
-	gunicorn -c gunicorn_config.py deploy:application
+	@#gunicorn -c gunicorn_config.py deploy:application
+	supervisorctl start web
 
 stopweb:
-	kill -QUIT `cat /home/everbird/var/8100/run/gunicorn-8100.pid` || echo -n " not running"
+	@#kill -QUIT `cat /home/everbird/var/8100/run/gunicorn-8100.pid` || echo -n " not running"
 	@#sudo kill -QUIT `cat /home/everbird/var/8100/run/nginx-8100.pid` || echo -n " not running"
+	supervisorctl stop web
 
-restartweb: stopweb startweb
+restartweb:
+	supervisorctl restart web
 r: restartweb
+
+status:
+	supervisorctl status
 
 tail:
 	tail -n 0 -F `./manage.py var_dir`/log/seer-output-8100.log -F `./manage.py var_dir`/log/gunicorn-error-8100.log
