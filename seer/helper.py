@@ -72,7 +72,8 @@ def normallize_name(name):
     _name = re.sub(r'(\(|（)([^\)]*)(\)|）)', r'', _name)
     _name = _name.strip()
 
-    ignore_words = ['光影星播客', '世界电影之旅', '电影报道', '爱电影', '电影情报站', '形象片']
+    ignore_words = ['光影星播客', '世界电影之旅', '电影报道', '爱电影',
+            '电影情报站', '形象片', '电影频道梦工场', '垫播']
     for w in ignore_words:
         if w in _name:
             return ''

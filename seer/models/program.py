@@ -7,6 +7,7 @@ from flask_sqlalchemy import BaseQuery
 
 from seer.extensions import db
 from seer.helper import DateTime, gen_repr
+from seer.models.extra import ProgramExtra
 
 
 class ProgramQuery(BaseQuery):
@@ -48,5 +49,7 @@ class Program(db.Model):
     start_dt = db.Column(DateTime, default=datetime.now)
     update_dt = db.Column(DateTime, default=datetime.now)
     end_dt = db.Column(DateTime, default=datetime.now)
+    extra_id = db.Column(db.Integer, db.ForeignKey(ProgramExtra.id))
+    extra = db.relationship(ProgramExtra, uselist=False)
 
     __repr__ = gen_repr(props=['id', 'name', 'channel_id'])
