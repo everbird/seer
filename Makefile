@@ -74,3 +74,6 @@ unittest:
 
 mapping:
 	@./manage.py mapping
+
+apply:
+	@./manage.py apply

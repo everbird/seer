@@ -76,6 +76,10 @@ def online():
 def mapping():
     return watchdog.do_mapping()
 
+@manager.command
+def apply():
+    return watchdog.do_apply()
+
 manager.add_option('-c', '--config',
                    dest="config",
                    required=False,

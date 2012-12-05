@@ -79,3 +79,5 @@ def normallize_name(name):
             return ''
 
     return _name
+
+to_utf8 = lambda x: x.encode('utf8')

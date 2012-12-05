@@ -88,3 +88,6 @@ def do_online():
 
 def do_mapping():
     match.update_unresolved_names()
+
+def do_apply():
+    match.apply()
