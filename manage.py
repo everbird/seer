@@ -72,6 +72,10 @@ def init_db():
 def online():
     return watchdog.do_online()
 
+@manager.command
+def mapping():
+    return watchdog.do_mapping()
+
 manager.add_option('-c', '--config',
                    dest="config",
                    required=False,

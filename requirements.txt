@@ -18,3 +18,4 @@ requests==0.14.2
 nose==1.2.1
 unittest2==0.5.1
 nosy==1.1.2
+hammock==0.2.0

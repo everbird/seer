@@ -2,10 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-import sys
-from os.path import dirname, abspath
-seer_path = dirname(dirname(abspath(__file__)))
-sys.path.insert(0, seer_path)
 
 import requests
 from pyquery import PyQuery as pq

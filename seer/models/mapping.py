@@ -1,14 +1,12 @@
-# seer.models.channel
 # -*- coding: utf-8 -*-
-
 
 from seer.extensions import db
 from seer.helper import gen_repr
 
-
-class Channel(db.Model):
-    __tablename__ = 'channel'
+class Mapping(db.Model):
+    __tablename__ = 'mapping'
     __table_args__ = (
+            db.UniqueConstraint('name', 'sid'),
             dict(
                 mysql_engine='InnoDB',
                 mysql_charset='utf8',
@@ -16,8 +14,6 @@ class Channel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(100), server_default='', nullable=False)
-    priority = db.Column(db.Integer)
-    programs = db.relationship('Program', backref='channel', lazy='dynamic')
-    external = db.relationship('External', backref='channel', uselist=False)
+    sid = db.Column(db.Unicode(20), nullable=False)
 
-    __repr__ = gen_repr(props=['id', 'name'])
+    __repr__ = gen_repr(props=['name', 'sid'])

@@ -68,3 +68,9 @@ online:
 
 nosy:
 	nosy -c tests/nosy.cfg
+
+unittest:
+	nosetests -s tests
+
+mapping:
+	@./manage.py mapping
