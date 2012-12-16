@@ -83,3 +83,6 @@ mapping:
 
 apply:
 	@./manage.py apply
+
+requirements:
+	pip install -r ./requirements.txt

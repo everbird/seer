@@ -17,3 +17,6 @@ class ProgramExtra(db.Model):
     douban_movie_id = db.Column(db.Unicode(20), nullable=False)
 
     __repr__ = gen_repr(props=['name', 'douban_movie_id'])
+
+    def __unicode__(self):
+        return self.name

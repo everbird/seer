@@ -54,7 +54,8 @@ def gen_repr(props=None, trailing=''):
     return f
 
 def normallize_name(name):
-    _name = re.sub(r'(故事片|译制片|系列片|录播|首播|专题|回看|黄金剧场|直播中|直播|电视剧)(:|：)(.*)', r'\3', name)
+    name = name.replace('回看 ', '')
+    _name = re.sub(r'(故事片|译制片|系列片|录播|首播|专题|回看|黄金剧场|直播中|直播|电视剧)(:|：)?(.*)', r'\3', name)
     trim_words = ['重播', '字幕']
     for w in trim_words:
         _name = re.sub(r'(.*?)(\(\%(word)s\)|（\%(word)s）)(.*$)' % {'word': w},
@@ -73,7 +74,7 @@ def normallize_name(name):
     _name = _name.strip()
 
     ignore_words = ['光影星播客', '世界电影之旅', '电影报道', '爱电影',
-            '电影情报站', '形象片', '电影频道梦工场', '垫播']
+            '电影情报站', '形象片', '电影频道梦工场', '垫播', '电影人物']
     for w in ignore_words:
         if w in _name:
             return ''

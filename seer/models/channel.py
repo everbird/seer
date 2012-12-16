@@ -21,3 +21,6 @@ class Channel(db.Model):
     external = db.relationship('External', backref='channel', uselist=False)
 
     __repr__ = gen_repr(props=['id', 'name'])
+
+    def __unicode__(self):
+        return self.name

@@ -41,6 +41,9 @@ class Candidate(db.Model):
 
     __repr__ = gen_repr(props=['uid', 'name'])
 
+    def __unicode__(self):
+        return self.name
+
 
 class CandidateProgram(db.Model):
     __tablename__ = 'candidate_program'
@@ -62,6 +65,9 @@ class CandidateProgram(db.Model):
     end_dt = db.Column(DateTime, default=datetime.now)
 
     __repr__ = gen_repr(props=['id', 'name', 'channel_id'])
+
+    def __unicode__(self):
+        return self.name
 
     @property
     def channel(self):

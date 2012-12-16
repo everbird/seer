@@ -22,3 +22,6 @@ class External(db.Model):
 
     __repr__ = gen_repr(props=['id', 'channel_id', 'kandianshi_id',
         'tvmao_channel_id'])
+
+    def __unicode__(self):
+        return self.channel_id

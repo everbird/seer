@@ -53,3 +53,6 @@ class Program(db.Model):
     extra = db.relationship(ProgramExtra, uselist=False)
 
     __repr__ = gen_repr(props=['id', 'name', 'channel_id'])
+
+    def __unicode__(self):
+        return self.name

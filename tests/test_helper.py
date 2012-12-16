@@ -31,6 +31,8 @@ class HelperTestCase(TestCase):
                 ('热门影院2012年11月30日3', '热门影院-年-月-日3'),
                 ('发现中国（123)', '发现中国'),
                 ('刷新3+7', '刷新-+7'),
+                ('回看  父子神探之神秘数字', '父子神探之神秘数字'),
+                ('回看 故事片: 民警故事', '民警故事')
                 ]
         for i, (name, expect) in enumerate(names):
             result = normallize_name(name)

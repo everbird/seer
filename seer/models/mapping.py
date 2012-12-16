@@ -18,6 +18,9 @@ class Mapping(db.Model):
 
     __repr__ = gen_repr(props=['name', 'douban_movie_id'])
 
+    def __unicode__(self):
+        return self.name
+
 
 def get_mapping():
     mappings = db.session.query(Mapping.name, Mapping.douban_movie_id).all()
