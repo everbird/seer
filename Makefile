@@ -84,5 +84,8 @@ mapping:
 apply:
 	@./manage.py apply
 
+douban_top:
+	@./manage.py douban_top
+
 requirements:
 	pip install -r ./requirements.txt

@@ -6,7 +6,7 @@ import os
 import subprocess
 from config import config
 
-from seer.tools import fetch, init_channels, online, match
+from seer.tools import fetch, init_channels, online, match, douban_top
 
 
 def version():
@@ -91,3 +91,6 @@ def do_mapping():
 
 def do_apply():
     match.apply()
+
+def do_douban_top():
+    douban_top.get_douban_top250_movies()

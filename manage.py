@@ -80,6 +80,10 @@ def mapping():
 def apply():
     return watchdog.do_apply()
 
+@manager.command
+def douban_top():
+    return watchdog.do_douban_top()
+
 manager.add_option('-c', '--config',
                    dest="config",
                    required=False,
