@@ -122,6 +122,7 @@ def apply_mapping(mapping):
                 extra = ProgramExtra(
                         name=name,
                         douban_movie_id=matched_douban_movie_id,
+                        program_id=p.id,
                         )
                 p.extra = extra
                 db.session.add(extra)

@@ -16,11 +16,19 @@ class ProgramExtra(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(100), server_default='', nullable=False)
     douban_movie_id = db.Column(db.Unicode(20), nullable=False)
+    program_id = db.Column(db.Integer, nullable=False)
 
     __repr__ = gen_repr(props=['name', 'douban_movie_id'])
 
     def __unicode__(self):
         return self.name
+
+    @property
+    def program(self):
+        from seer.models.program import Program
+        return db.session.query(Program) \
+                .filter(Program.id==self.program_id) \
+                .first()
 
     @property
     def douban_top_movie(self):
