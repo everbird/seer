@@ -1,4 +1,4 @@
-from fabric.api import hosts, run, cd, prefix
+from fabric.api import hosts, run, cd
 from fabric.utils import puts
 
 @hosts('rainbow')
@@ -30,12 +30,12 @@ def rebuild():
     vrun('make online')
 
 @hosts('rainbow')
-def upgrade_mapping():
+def mapping():
     puts('Upgrade mapping...')
     vrun("make mapping")
 
 @hosts('rainbow')
-def apply_mapping():
+def apply():
     puts('Upgrade mapping...')
     vrun("make apply")
 
@@ -43,3 +43,13 @@ def apply_mapping():
 def restart():
     puts('Restarting ...')
     vrun("make restart")
+
+@hosts('rainbow')
+def douban_top():
+    puts('Updating douban top250 infomation...')
+    vrun('make douban_top')
+
+@hosts('rainbow')
+def update_douban():
+    puts('Updating mapped douban infomation...')
+    vrun('make update_douban')
