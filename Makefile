@@ -87,5 +87,8 @@ apply:
 douban_top:
 	@./manage.py douban_top
 
+update_douban:
+	@./manage.py update_douban
+
 requirements:
 	pip install -r ./requirements.txt

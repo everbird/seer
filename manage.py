@@ -84,6 +84,10 @@ def apply():
 def douban_top():
     return watchdog.do_douban_top()
 
+@manager.command
+def update_douban():
+    return watchdog.do_update_douban()
+
 manager.add_option('-c', '--config',
                    dest="config",
                    required=False,

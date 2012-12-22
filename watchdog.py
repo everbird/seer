@@ -94,3 +94,6 @@ def do_apply():
 
 def do_douban_top():
     douban_top.get_douban_top250_movies()
+
+def do_update_douban():
+    douban_top.update_mapped_douban_movies()

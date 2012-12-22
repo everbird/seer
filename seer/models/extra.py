@@ -2,6 +2,7 @@
 
 from seer.extensions import db
 from seer.helper import gen_repr
+from seer.models.douban import DoubanTopMovie
 
 class ProgramExtra(db.Model):
     __tablename__ = 'program_extra'
@@ -20,3 +21,9 @@ class ProgramExtra(db.Model):
 
     def __unicode__(self):
         return self.name
+
+    @property
+    def douban_top_movie(self):
+        return db.session.query(DoubanTopMovie) \
+                .filter(DoubanTopMovie.douban_movie_id==self.douban_movie_id) \
+                .first()

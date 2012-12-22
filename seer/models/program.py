@@ -8,6 +8,7 @@ from flask_sqlalchemy import BaseQuery
 from seer.extensions import db
 from seer.helper import DateTime, gen_repr
 from seer.models.extra import ProgramExtra
+from seer.models.douban import DoubanTopMovie as Top
 
 
 class ProgramQuery(BaseQuery):
@@ -28,6 +29,13 @@ class ProgramQuery(BaseQuery):
                 ))
         q = reduce(db.and_, criteria)
         return self.filter(q).distinct()
+
+    def get_top_programs(self):
+        return db.session.query(Program) \
+                .filter(ProgramExtra.douban_movie_id==Top.douban_movie_id) \
+                .filter(Program.extra_id==ProgramExtra.id) \
+                .all()
+
 
 class Program(db.Model):
     __tablename__ = 'program'
