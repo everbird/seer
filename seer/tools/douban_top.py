@@ -10,7 +10,8 @@ from seer.application import db
 from seer.models.douban import DoubanTopMovie, DoubanMovie
 from seer.models.mapping import Mapping
 
-API_KEY = '06d9d6d0a87af3ca148d8471f970db5e'
+#API_KEY = '06d9d6d0a87af3ca148d8471f970db5e'
+API_KEY = '0caa7f384c9084f325ff7da8e5b18ed9'
 
 FUNC_ENCODE_UTF8 = lambda x: x.encode('utf-8')
 FUNC_EXTRACT_ID = lambda x: x.split('/')[-2]
