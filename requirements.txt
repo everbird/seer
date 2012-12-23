@@ -5,7 +5,7 @@ Flask-Admin==1.0.3
 Flask-Restless==0.7.0
 gunicorn==0.14.6
 greenlet==0.4
-pyjade==1.5
+pyjade==1.7
 supervisor==3.0a12
 pyinotify==0.9.3
 gevent==0.13.7
