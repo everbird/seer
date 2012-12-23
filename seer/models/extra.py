@@ -2,7 +2,7 @@
 
 from seer.extensions import db
 from seer.helper import gen_repr
-from seer.models.douban import DoubanTopMovie
+from seer.models.douban import DoubanTopMovie, DoubanMovie
 
 class ProgramExtra(db.Model):
     __tablename__ = 'program_extra'
@@ -34,4 +34,10 @@ class ProgramExtra(db.Model):
     def douban_top_movie(self):
         return db.session.query(DoubanTopMovie) \
                 .filter(DoubanTopMovie.douban_movie_id==self.douban_movie_id) \
+                .first()
+
+    @property
+    def douban_mapped_movie(self):
+        return db.session.query(DoubanMovie) \
+                .filter(DoubanMovie.douban_movie_id==self.douban_movie_id) \
                 .first()
