@@ -46,8 +46,11 @@ def match_name(name):
                 at = at.strip()
                 movie_tuples.append((at, douban_movie_id, rating_num))
 
-        movie_tuples = map(lambda x: x+(diff_ratio(name, x[0]),), movie_tuples)
-        movie_tuples = filter(lambda x: x[3] > 0.5, movie_tuples)
+        movie_tuples = map(
+                lambda x: x+(diff_ratio(name, x[0]), diff_ratio(x[0], name)),
+                movie_tuples)
+        movie_tuples = filter(lambda x: x[3] >= 0.6 and x[4] >= 0.6,
+                movie_tuples)
         movie_tuples = sorted(movie_tuples,
                 key=itemgetter(3, 2),
                 reverse=True)
@@ -59,10 +62,10 @@ def get_matching_douban_movie_id(name):
     movie_tuples = match_name(name)
     if movie_tuples:
 
-        for title, douban_movie_id, rating_num, ratio in movie_tuples:
-            print title, douban_movie_id, rating_num, ratio
+        for title, douban_movie_id, rating_num, ratio, ratio_r in movie_tuples:
+            print title, douban_movie_id, rating_num, ratio, ratio_r
 
-        title, douban_movie_id, rating_num, ratio = movie_tuples[0]
+        title, douban_movie_id, rating_num, ratio, ratio_r = movie_tuples[0]
         return douban_movie_id
 
 def get_unresolved_normalized_names():
