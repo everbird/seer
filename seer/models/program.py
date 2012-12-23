@@ -8,7 +8,7 @@ from flask_sqlalchemy import BaseQuery
 from seer.extensions import db
 from seer.helper import DateTime, gen_repr
 from seer.models.extra import ProgramExtra
-from seer.models.douban import DoubanTopMovie as Top
+from seer.models.douban import DoubanTopMovie as Top, DoubanMovie
 
 
 class ProgramQuery(BaseQuery):
@@ -34,6 +34,15 @@ class ProgramQuery(BaseQuery):
         return db.session.query(Program) \
                 .filter(ProgramExtra.douban_movie_id==Top.douban_movie_id) \
                 .filter(Program.extra_id==ProgramExtra.id) \
+                .all()
+
+    def get_mapped_programs(self, rating_threshold=7, rate_num_threshold=100):
+        return db.session.query(Program) \
+                .filter(db.and_(
+                    Program.extra_id==ProgramExtra.id,
+                    ProgramExtra.douban_movie_id==DoubanMovie.douban_movie_id,
+                    DoubanMovie.rating>=rating_threshold,
+                    DoubanMovie.rate_num>=rate_num_threshold)) \
                 .all()
 
 
