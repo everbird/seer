@@ -118,17 +118,24 @@ def apply_mapping(mapping):
             name = normallize_name(p.name.encode('utf8'))
             matched_douban_movie_id = mapping.get(name)
             if matched_douban_movie_id:
-                print 'apply %s to %s' % (matched_douban_movie_id, p)
-                extra = ProgramExtra(
-                        name=name,
-                        douban_movie_id=matched_douban_movie_id,
-                        program_id=p.id,
-                        )
-                p.extra = extra
-                db.session.add(extra)
-                db.session.add(p)
-        db.session.commit()
-        print channel, 'applied'
+                exist = db.session.query(ProgramExtra) \
+                        .filter(ProgramExtra.name==name) \
+                        .filter(ProgramExtra.douban_movie_id==matched_douban_movie_id) \
+                        .first()
+                if not exist:
+                    print 'apply %s to %s' % (matched_douban_movie_id, p)
+                    extra = ProgramExtra(
+                            name=name,
+                            douban_movie_id=matched_douban_movie_id,
+                            program_id=p.id,
+                            )
+                    p.extra = extra
+                    db.session.add(extra)
+                    db.session.add(p)
+                else:
+                    print 'exist:', name, matched_douban_movie_id
+            db.session.commit()
+            print channel, 'applied'
 
 
 def apply():
