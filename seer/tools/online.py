@@ -19,9 +19,9 @@ def online(datenum=None, days=7):
     this_day = datetime.strptime(datenum, '%Y%m%d')
     datenums = map(lambda x: x.strftime('%Y%m%d'),
             [this_day+timedelta(i) for i in range(7)])
+    channels = db.session.query(Channel).all()
     for dn in datenums:
         print 'Online [%s]'%dn
-        channels = db.session.query(Channel).all()
         for channel in channels:
             online_by_channel(channel, datenum=dn)
 
@@ -42,9 +42,11 @@ def online_by_channel(channel, datenum):
     if not programs:
         print 'no candidate program for ', channel.name.encode('utf8')
 
-    channel.programs = programs
-
-    db.session.add(channel)
+    #channel.programs = programs
+    #db.session.add(channel)
+    # Dirty fix
+    for p in programs:
+        db.session.add(p)
     db.session.commit()
 
 def get_programs(candidates, channel_id, datenum):
