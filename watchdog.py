@@ -73,7 +73,7 @@ def build_playground():
 def fetch_kandianshi(channel):
     return fetch.kandianshi(int(channel))
 
-def fetch_tvmao(channel, datenum):
+def fetch_tvmao(channel, datenum=None):
     return fetch.tvmao(int(channel), datenum)
 
 def init_db():
