@@ -23,7 +23,7 @@ def online(datenum=None, days=7):
         print 'Online [%s]'%dn
         channels = db.session.query(Channel).all()
         for channel in channels:
-            online_by_channel(channel, datenum=datenum)
+            online_by_channel(channel, datenum=dn)
 
 
 def online_by_channel(channel, datenum):
