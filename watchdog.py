@@ -90,8 +90,8 @@ def fetch_all():
         # Stop kandianshi fetching 'cause it only has programes of today.
         #fetch_kandianshi(c)
 
-def do_online(datenum):
-    online.online(datenum)
+def do_online(datenum=None, days=7):
+    online.online(datenum, days)
 
 def do_mapping():
     match.update_unresolved_names()

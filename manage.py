@@ -70,8 +70,9 @@ def init_db():
     return watchdog.init_db()
 
 @manager.option('-n', '--datenum', help='Date number')
-def online(datenum=None):
-    return watchdog.do_online(datenum)
+@manager.option('-d', '--days', help='Days count')
+def online(datenum=None, days=7):
+    return watchdog.do_online(datenum, days)
 
 @manager.command
 def mapping():
