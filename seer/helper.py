@@ -83,3 +83,9 @@ def normallize_name(name):
     return _name
 
 to_utf8 = lambda x: x.encode('utf8')
+
+def trunc(s, max_len=40, etc='...'):
+    s = str(s).decode("utf-8")
+    if len(s)>= max_len:
+        s = s[:max_len] + str(etc)
+    return s.encode("utf-8")

@@ -4,6 +4,8 @@
 import errno
 import os
 import subprocess
+from operator import itemgetter
+
 from config import config
 
 from seer.tools import fetch, init_channels, online, match, douban_top
@@ -71,20 +73,25 @@ def build_playground():
 def fetch_kandianshi(channel):
     return fetch.kandianshi(int(channel))
 
-def fetch_tvmao(channel):
-    return fetch.tvmao(int(channel))
+def fetch_tvmao(channel, datenum):
+    return fetch.tvmao(int(channel), datenum)
 
 def init_db():
     init_channels.init()
 
 def fetch_all():
-    for c, (name, priority) in init_channels.CHANNEL_DATA.iteritems():
+    tuples = ((c, n, p) for c, (n, p) in init_channels.CHANNEL_DATA.iteritems())
+    tuples = sorted(tuples,
+            key=itemgetter(2),
+            reverse=True)
+    for c, name, priority in tuples:
         print 'feching %s: %s' % (c, name), priority
         fetch_tvmao(c)
-        fetch_kandianshi(c)
+        # Stop kandianshi fetching 'cause it only has programes of today.
+        #fetch_kandianshi(c)
 
-def do_online():
-    online.online()
+def do_online(datenum):
+    online.online(datenum)
 
 def do_mapping():
     match.update_unresolved_names()

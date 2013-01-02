@@ -57,8 +57,9 @@ def fetch_kandianshi(channel):
     return watchdog.fetch_kandianshi(channel)
 
 @manager.option('-n', '--channel', help='Channel id')
-def fetch_tvmao(channel):
-    return watchdog.fetch_tvmao(channel)
+@manager.option('-d', '--datenum', help='Date number')
+def fetch_tvmao(channel, datenum=None):
+    return watchdog.fetch_tvmao(channel, datenum)
 
 @manager.command
 def fetch_all():
@@ -68,9 +69,9 @@ def fetch_all():
 def init_db():
     return watchdog.init_db()
 
-@manager.command
-def online():
-    return watchdog.do_online()
+@manager.option('-n', '--datenum', help='Date number')
+def online(datenum=None):
+    return watchdog.do_online(datenum)
 
 @manager.command
 def mapping():
