@@ -73,3 +73,9 @@ class Program(db.Model):
 
     def __unicode__(self):
         return self.name
+
+    def exist_one(self):
+        return db.session.query(Program)\
+                .filter_by(channel_id=self.channel_id)\
+                .filter_by(start_dt=self.start_dt)\
+                .first()
