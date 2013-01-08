@@ -13,7 +13,7 @@ def index():
 
 @frontend.route('/win8/privacy_policy')
 def win8_privacy_plicy():
-    return render_template('privacy_prolicy.jade')
+    return rt('privacy_prolicy.jade')
 
 @frontend.route('/hot')
 @frontend.route('/douban/hot')

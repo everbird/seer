@@ -30,20 +30,31 @@ class ProgramQuery(BaseQuery):
         q = reduce(db.and_, criteria)
         return self.filter(q).distinct()
 
-    def get_top_programs(self):
-        return db.session.query(Program) \
+    def get_top_programs(self, show_all=False):
+        exp = db.session.query(Program) \
                 .filter(ProgramExtra.douban_movie_id==Top.douban_movie_id) \
-                .filter(Program.extra_id==ProgramExtra.id) \
-                .all()
+                .filter(Program.extra_id==ProgramExtra.id)
 
-    def get_mapped_programs(self, rating_threshold=7, rate_num_threshold=100):
-        return db.session.query(Program) \
+        if not show_all:
+            exp = exp.filter(Program.datenum>=datetime.now().strftime('%Y%m%d'))
+
+        return exp.all()
+
+    def get_mapped_programs(self,
+            rating_threshold=7,
+            rate_num_threshold=100,
+            show_all=False):
+        exp = db.session.query(Program) \
                 .filter(db.and_(
                     Program.extra_id==ProgramExtra.id,
                     ProgramExtra.douban_movie_id==DoubanMovie.douban_movie_id,
                     DoubanMovie.rating>=rating_threshold,
-                    DoubanMovie.rate_num>=rate_num_threshold)) \
-                .all()
+                    DoubanMovie.rate_num>=rate_num_threshold))
+
+        if not show_all:
+            exp = exp.filter(Program.datenum>=datetime.now().strftime('%Y%m%d'))
+
+        return exp.all()
 
 
 class Program(db.Model):
