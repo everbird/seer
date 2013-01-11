@@ -53,3 +53,8 @@ def douban_top():
 def update_douban():
     puts('Updating mapped douban infomation...')
     vrun('make update_douban')
+
+@hosts('rainbow')
+def package():
+    puts('Start packaging ...')
+    vrun('make package')
