@@ -8,7 +8,8 @@ from operator import itemgetter
 
 from config import config
 
-from seer.tools import fetch, init_channels, online, match, douban_top
+from seer.tools import (fetch, init_channels, online, match, douban_top,
+        package)
 
 
 def version():
@@ -104,3 +105,5 @@ def do_douban_top():
 
 def do_update_douban():
     douban_top.update_mapped_douban_movies()
+
+do_package = package.package
