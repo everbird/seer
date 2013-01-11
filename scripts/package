@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ -n "$1" ];then
+    vardate=$1
+else
+    vardate=`date +"%Y%m%d"`
+fi
+echo "Packaging for $vardate"
+
+wget -O - -c "http://seer.everbird.net/api/program?q={%22filters%22:%20[{%22name%22:%20%22datenum%22,%20%22op%22:%20%22eq%22,%20%22val%22:%20%22$vardate%22}]}" | gzip > "daily-programs-$vardate.json.gz"
