@@ -8,6 +8,10 @@ DEVELOP_MODE = True
 PROJECT_NAME = 'seer'
 PROJECT_DIR = '/home/everbird/code/%s' % PROJECT_NAME
 SITE_PORT = '8100'
+SITE_DOMAIN = 'seer.everbird.net'
+SITE_HOME = 'http://%s:%s' %(SITE_DOMAIN, SITE_PORT)
+SHOWN_HOME = 'http://%s' % SITE_DOMAIN
+
 VAR_PATH = os.path.expanduser('~/var')
 logfile = os.path.expanduser('%s/%s/log/%s-output-%s.log' % \
         (VAR_PATH, SITE_PORT, PROJECT_NAME, SITE_PORT))

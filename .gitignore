@@ -12,3 +12,5 @@
 # Project env file #
 ###################
 *.project
+
+config/local_config.py

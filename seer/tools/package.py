@@ -6,6 +6,8 @@ import json
 from datetime import datetime
 from urllib import urlencode
 
+from config import config
+
 cmd_template = string.Template('wget -O - -c "$url" | gzip > "$target"')
 
 CMD_WGET_WITH_GZIP = 'wget -O - -c "%s" | gzip > "%s"'
@@ -25,7 +27,7 @@ def package(target, datenum=None):
     payload = dict(
        q=json.dumps(query),
     )
-    source = 'http://seer.everbird.net/api/program?' + urlencode(payload)
+    source = config.SHOWN_HOME + '/api/program?' + urlencode(payload)
 
     fname = 'daily-programs-%s.json.gz' % datenum
     output_path = os.path.join(target, fname)
