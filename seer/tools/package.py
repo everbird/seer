@@ -6,7 +6,7 @@ import json
 from datetime import datetime
 from urllib import urlencode
 
-from config import config
+from configs import config
 
 cmd_template = string.Template('wget -O - -c "$url" | gzip > "$target"')
 

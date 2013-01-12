@@ -94,4 +94,6 @@ requirements:
 	pip install -r ./requirements.txt
 
 package:
-	@./manage.py package -t `./manage.py var_dir`/www/
+	@./manage.py package -t `./manage.py var_dir`/www/packages
+
+rebuild_all: build_var create_db init_db

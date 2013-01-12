@@ -8,7 +8,7 @@ from os.path import join, dirname, abspath
 import signal
 import threading
 
-from config.config import setup_logs, SITE_PORT
+from configs.config import setup_logs, SITE_PORT
 
 def numCPUs():
     if not hasattr(os, "sysconf"):

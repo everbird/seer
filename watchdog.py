@@ -6,7 +6,7 @@ import os
 import subprocess
 from operator import itemgetter
 
-from config import config
+from configs import config
 
 from seer.tools import (fetch, init_channels, online, match, douban_top,
         package)

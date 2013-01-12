@@ -6,6 +6,16 @@ from flask_admin.contrib import sqlamodel
 
 from seer import views
 from seer.config import DefaultConfig
+
+try:
+    from seer.local_config import DefaultConfig
+except ImportError, e:
+    if e.args[0].startswith('No module named local_config'):
+        pass
+    else:
+        # the ImportError is raised inside local_config
+        raise
+
 from seer.extensions import db, admin, manager
 from seer.models.program import Program
 from seer.models.channel import Channel
@@ -32,6 +42,7 @@ def create_app(config=None, app_name=None, modules=None):
 
     configure_app(app, config)
 
+    configure_statics(app)
     configure_extensions(app)
     configure_modules(app, modules)
 
@@ -68,3 +79,13 @@ def configure_api(manager):
     manager.create_api(Channel, methods=['GET'], results_per_page=None,
             exclude_columns=['programs', 'external', 'candidate',
                 'candidate_id'])
+
+def configure_statics(app):
+    if app.config['DEBUG']:
+        from configs import config as conf
+        from os import path
+        from werkzeug.wsgi import SharedDataMiddleware
+        package_path = path.join(conf.VAR_PATH, conf.SITE_PORT, 'www', 'packages')
+        app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
+            '/packages': path.join(package_path, 'www', 'packages')
+            })

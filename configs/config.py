@@ -27,7 +27,7 @@ def setup_logs():
 VAR_DIRS = ['log',
             'run',
             'tmp',
-            'www',
+            'www/packages',
             ]
 
 try:

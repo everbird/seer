@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 class DefaultConfig(object):
-    DEBUG = True
+    DEBUG = False
     SECRET_KEY = "secret"
 
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://seer:burning@localhost/seer_d"

@@ -13,4 +13,8 @@
 ###################
 *.project
 
+
+# Local configuration #
+###################
 config/local_config.py
+seer/local_config.py
