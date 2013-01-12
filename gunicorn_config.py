@@ -27,10 +27,10 @@ backlog = 2048
 worker_class = "sync"
 debug = True
 daemon = False # MUST be False when use gunicorn with supervisord
-pidfile = os.path.expanduser('~/var/%s/run/gunicorn-%s.pid' % (SITE_PORT, SITE_PORT))
-errorlog = os.path.expanduser('~/var/%s/log/gunicorn-error-%s.log' % (SITE_PORT, SITE_PORT))
-accesslog = os.path.expanduser('~/var/%s/log/gunicorn-access-%s.log' % (SITE_PORT, SITE_PORT))
-logfile = os.path.expanduser('~/var/%s/log/gunicorn-output-%s.log' % (SITE_PORT, SITE_PORT))
+pidfile = os.path.expanduser('~/var/%s/run/gunicorn.pid' % SITE_PORT)
+errorlog = os.path.expanduser('~/var/%s/log/gunicorn-error.log' % SITE_PORT)
+accesslog = os.path.expanduser('~/var/%s/log/gunicorn-access.log' % SITE_PORT)
+logfile = os.path.expanduser('~/var/%s/log/gunicorn-output.log' % SITE_PORT)
 
 current_dir = os.getcwd()
 
