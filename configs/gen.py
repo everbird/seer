@@ -1,22 +1,28 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
-import os
+from os.path import join, dirname, abspath
 from string import Template
 
-import config
+from templates import config
 
 def run():
-    current_dir = os.path.dirname(os.path.abspath(__file__))
+    src = dirname(dirname(abspath(__file__)))
 
-    # Generate supervisord.conf
-    config_path = os.path.join(current_dir, 'templates/supervisord.conf.template')
-    with open(config_path) as f:
-        content = Template(f.read())\
-                .substitute(**config.__dict__)
-        output_path = os.path.join(current_dir, '../supervisord.conf')
-        with open(output_path, 'w') as o:
-            o.write(content)
+    generate_stacks = {
+            'configs/templates/supervisord.conf.template': 'supervisord.conf',
+            'configs/templates/local_config.py.template': 'configs/local_config.py',
+            'configs/templates/seer_local_config.py.template': 'seer/local_config.py',
+            }
+    for source, target in generate_stacks.iteritems():
+
+        # Generate by generate_stacks
+        with open(join(src, source)) as f:
+            content = Template(f.read())\
+                    .substitute(**config.__dict__)
+            with open(join(src, target), 'w') as o:
+                o.write(content)
+                print target, 'generated.'
 
     print 'done.'
 

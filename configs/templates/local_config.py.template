@@ -1,0 +1,7 @@
+# -*- coding: utf-8 -*-
+
+
+SITE_PORT = '$SITE_PORT'
+SITE_DOMAIN = '$SITE_DOMAIN'
+SITE_HOME = 'http://%s:%s' %(SITE_DOMAIN, SITE_PORT)
+SHOWN_HOME = SITE_HOME

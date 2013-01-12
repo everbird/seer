@@ -18,3 +18,4 @@
 ###################
 local_config.py
 supervisord.conf
+configs/templates/config.py

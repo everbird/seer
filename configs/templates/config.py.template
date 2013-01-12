@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+
+VAR_PATH = '/home/everbird/var'
+SITE_PORT = '8000'
+SITE_DOMAIN = 'cidar'
+DATABASE_NAME = 'seer_d'
