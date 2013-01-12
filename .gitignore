@@ -17,3 +17,4 @@
 # Local configuration #
 ###################
 local_config.py
+supervisord.conf

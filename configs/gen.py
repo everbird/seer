@@ -10,7 +10,7 @@ def run():
     current_dir = os.path.dirname(os.path.abspath(__file__))
 
     # Generate supervisord.conf
-    config_path = os.path.join(current_dir, 'templates/supervisord.conf')
+    config_path = os.path.join(current_dir, 'templates/supervisord.conf.template')
     with open(config_path) as f:
         content = Template(f.read())\
                 .substitute(**config.__dict__)
