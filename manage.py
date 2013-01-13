@@ -92,7 +92,7 @@ def update_douban():
 
 @manager.option('-n', '--datenum', help='Date number to package.')
 @manager.option('-t', '--target', help='Target package path.')
-def package(target, datenum=None):
+def package(target=None, datenum=None):
     watchdog.do_package(target, datenum)
 
 manager.add_option('-c', '--config',

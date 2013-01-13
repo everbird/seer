@@ -12,8 +12,9 @@ cmd_template = string.Template('wget -O - -c "$url" | gzip > "$target"')
 
 CMD_WGET_WITH_GZIP = 'wget -O - -c "%s" | gzip > "%s"'
 
-def package(target, datenum=None):
-    target = target or '.'
+def package(target=None, datenum=None):
+    target = target or os.path.join(config.VAR_PATH, config.SITE_PORT,
+            'www/packages')
     datenum = datenum or datetime.now().strftime('%Y%m%d')
 
     query = dict(
