@@ -52,13 +52,13 @@ def build_var():
 def make_shell_context():
     return dict(app=current_app)
 
-@manager.option('-n', '--channel', help='Channel id')
+@manager.option('-c', '--channel', help='Channel id')
 def fetch_kandianshi(channel):
     return watchdog.fetch_kandianshi(channel)
 
-@manager.option('-n', '--channel', help='Channel id')
-@manager.option('-d', '--datenum', help='Date number')
-def fetch_tvmao(channel, datenum=None):
+@manager.option('-c', '--channel', help='Channel id')
+@manager.option('-n', '--datenum', help='Date number')
+def fetch_tvmao(channel, datenum):
     return watchdog.fetch_tvmao(channel, datenum)
 
 @manager.command
@@ -70,8 +70,8 @@ def init_db():
     return watchdog.init_db()
 
 @manager.option('-n', '--datenum', help='Date number')
-@manager.option('-d', '--days', help='Days count')
-def online(datenum=None, days=7):
+@manager.option('-d', '--days', help='Days count', default=7, type=int)
+def online(datenum, days):
     return watchdog.do_online(datenum, days)
 
 @manager.command
@@ -92,8 +92,10 @@ def update_douban():
 
 @manager.option('-n', '--datenum', help='Date number to package.')
 @manager.option('-t', '--target', help='Target package path.')
-def package(target=None, datenum=None):
-    watchdog.do_package(target, datenum)
+@manager.option('-d', '--days', help='Days count from specifed datenum.',
+        default=1, type=int)
+def package(target, datenum, days):
+    watchdog.do_package(target, datenum, days)
 
 manager.add_option('-c', '--config',
                    dest="config",
