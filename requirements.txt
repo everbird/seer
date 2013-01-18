@@ -3,6 +3,7 @@ Flask-Script==0.5.1
 Flask-SQLAlchemy==0.16
 Flask-Admin==1.0.3
 Flask-Restless==0.7.0
+Flask-And-Redis==0.4
 gunicorn==0.14.6
 greenlet==0.4
 pyjade==1.7
