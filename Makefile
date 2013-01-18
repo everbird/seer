@@ -93,10 +93,10 @@ package:
 
 rebuild_all: build_var create_db init_db
 
-gen_product:
+gen_product: build_var
 	@./gen.py product
 
-gen:
+gen: build_var
 	@./gen.py
 
 gen_clean:
