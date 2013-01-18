@@ -1,0 +1,9 @@
+## redis for memcache use
+
+daemonize no
+port $REDIS_CACHE_PORT
+pidfile /home/everbird/var/$SITE_PORT/run/redis-cache-$REDIS_CACHE_PORT.pid
+logfile /home/everbird/var/$SITE_PORT/log/redis-cache-$REDIS_CACHE_PORT.log
+dir /home/everbird/var/$SITE_PORT/data/redis-$REDIS_CACHE_PORT
+
+maxmemory 80m
