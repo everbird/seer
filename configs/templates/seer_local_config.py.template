@@ -5,5 +5,11 @@ class DefaultConfig(object):
     DEBUG = True
     SECRET_KEY = "secret"
 
+    # --- SQLAlchemy ---
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://seer:burning@localhost/$DATABASE_NAME"
     SQLALCHEMY_ECHO = True
+
+    # --- Redis ---
+    REDIS_HOST = '$REDIS_STORE_HOST'
+    REDIS_PORT = $REDIS_STORE_PORT
+    REDIS_DB = 0

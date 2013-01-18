@@ -25,12 +25,8 @@ redirect_stderr=true
 stdout_logfile=$VAR_PATH/$SITE_PORT/log/supervisord-web-out.log
 stderr_logfile=$VAR_PATH/$SITE_PORT/log/supervisord-web-error.log
 
-[program:redis]
-command=/usr/sbin/redis-server
-autostart=true
-autorestart=true
-startsecs=3
-stdout_logfile=$VAR_PATH/$SITE_PORT/log/redis-out.log
+[program:redis-store]
+command=/usr/sbin/redis-server redis-store.conf
 
 [include]
 files = spvsr_generated.ini spvsr_local.ini

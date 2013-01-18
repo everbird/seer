@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 
+"""
+Copy this to ./config.py to prepare for config generation.
+"""
+
 VAR_PATH = '/home/everbird/var'
 SITE_PORT = '8000'
 SITE_DOMAIN = 'cidar'
 DATABASE_NAME = 'seer_d'
+
+REDIS_STORE_HOST = 'localhost'
+REDIS_STORE_PORT = 6379

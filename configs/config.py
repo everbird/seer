@@ -12,21 +12,14 @@ SITE_DOMAIN = 'seer.everbird.net'
 SITE_HOME = 'http://%s:%s' %(SITE_DOMAIN, SITE_PORT)
 SHOWN_HOME = 'http://%s' % SITE_DOMAIN
 
+REDIS_STORE_HOST = 'localhost'
+REDIS_STORE_PORT = 6379
+
 VAR_PATH = os.path.expanduser('~/var')
-logfile = os.path.expanduser('%s/%s/log/%s-output-%s.log' % \
-        (VAR_PATH, SITE_PORT, PROJECT_NAME, SITE_PORT))
-
-def setup_logs():
-    try:
-        debug_log = open(logfile, 'a', 1)
-        sys.stdout = debug_log
-    except (IOError, OSError), exc:
-        sys.stderr.write('error open debug log %r: %s\n'
-                % (logfile, exc.strerror))
-
 VAR_DIRS = ['log',
             'run',
             'tmp',
+            'data/redis/store',
             'www/packages',
             ]
 
@@ -38,3 +31,14 @@ except ImportError, e:
     else:
         # the ImportError is raised inside local_config
         raise
+
+logfile = os.path.expanduser('%s/%s/log/%s-output.log' % \
+        (VAR_PATH, SITE_PORT, PROJECT_NAME))
+
+def setup_logs():
+    try:
+        debug_log = open(logfile, 'a', 1)
+        sys.stdout = debug_log
+    except (IOError, OSError), exc:
+        sys.stderr.write('error open debug log %r: %s\n'
+                % (logfile, exc.strerror))

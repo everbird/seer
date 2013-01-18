@@ -1,0 +1,19 @@
+## redis for persistence store
+
+daemonize no
+port $REDIS_STORE_PORT
+pidfile /home/everbird/var/$SITE_PORT/run/redis-$REDIS_STORE_PORT.pid
+logfile /home/everbird/var/$SITE_PORT/log/redis-$REDIS_STORE_PORT.log
+dir /home/everbird/var/$SITE_PORT/data/redis/store
+
+save 900 1
+save 300 10
+save 60 10000
+
+really-use-vm yes
+vm-enabled yes
+vm-max-memory 128m
+vm-swap-file /tmp/redis_db.swap
+vm-page-size 32
+vm-pages 10000000
+vm-max-threads 1
