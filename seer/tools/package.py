@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import commands
 import string
 import json
 import requests
@@ -41,7 +42,7 @@ def package(target=None, datenum=None, days=1):
         fname = 'daily-programs-%s.json.gz' % _datenum
         output_path = os.path.join(target, fname)
         cmd = CMD_WGET_WITH_GZIP % (source, output_path)
-        os.system(cmd)
+        _ = commands.getoutput(cmd)
         print '[%s] done.'%i, output_path
 
 def is_remote_ok(url):
