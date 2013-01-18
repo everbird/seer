@@ -20,3 +20,5 @@ local_config.py
 supervisord.conf
 configs/templates/config.py
 redis-store.conf
+redis-cache.conf
+dump.rdb
