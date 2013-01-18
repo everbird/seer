@@ -92,3 +92,12 @@ package:
 	@./manage.py package -t `./manage.py var_dir`/www/packages
 
 rebuild_all: build_var create_db init_db
+
+gen_product:
+	@./gen.py product
+
+gen:
+	@./gen.py
+
+gen_clean:
+	@./gen.py clean

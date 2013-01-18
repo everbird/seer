@@ -58,3 +58,8 @@ def update_douban():
 def package():
     puts('Start packaging ...')
     vrun('make package')
+
+@hosts('rainbow')
+def gen():
+    puts('Generating config files...')
+    vrun('make gen_product')

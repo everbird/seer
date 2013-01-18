@@ -20,6 +20,8 @@ ENV_GENERATE_FILES = {
             },
         'product': {
             'configs/templates/supervisord.conf.template': 'supervisord.conf',
+            'configs/templates/redis-store.conf.template': 'redis-store.conf',
+            'configs/templates/redis-cache.conf.template': 'redis-cache.conf',
             }
         }
 
