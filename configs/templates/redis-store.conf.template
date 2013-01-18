@@ -2,8 +2,8 @@
 
 daemonize no
 port $REDIS_STORE_PORT
-pidfile /home/everbird/var/$SITE_PORT/run/redis-$REDIS_STORE_PORT.pid
-logfile /home/everbird/var/$SITE_PORT/log/redis-$REDIS_STORE_PORT.log
+pidfile /home/everbird/var/$SITE_PORT/run/redis-store-$REDIS_STORE_PORT.pid
+logfile /home/everbird/var/$SITE_PORT/log/redis-store-$REDIS_STORE_PORT.log
 dir /home/everbird/var/$SITE_PORT/data/redis/store
 
 save 900 1

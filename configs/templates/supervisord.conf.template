@@ -28,5 +28,8 @@ stderr_logfile=$VAR_PATH/$SITE_PORT/log/supervisord-web-error.log
 [program:redis-store]
 command=/usr/sbin/redis-server redis-store.conf
 
+[program:redis-cache]
+command=/usr/sbin/redis-server redis-cache.conf
+
 [include]
 files = spvsr_generated.ini spvsr_local.ini

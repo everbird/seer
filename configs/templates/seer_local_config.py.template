@@ -12,4 +12,9 @@ class DefaultConfig(object):
     # --- Redis ---
     REDIS_HOST = '$REDIS_STORE_HOST'
     REDIS_PORT = $REDIS_STORE_PORT
-    REDIS_DB = 0
+
+    # --- Cache ---
+    CACHE_TYPE = 'redis'
+    CACHE_DEFAULT_TIMEOUT = 300
+    CACHE_REDIS_HOST = '$REDIS_CACHE_HOST'
+    CACHE_REDIS_PORT = $REDIS_CACHE_PORT
