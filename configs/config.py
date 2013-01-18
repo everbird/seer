@@ -23,6 +23,7 @@ VAR_DIRS = ['log',
             'run',
             'tmp',
             'data/redis/store',
+            'data/redis/cache',
             'www/packages',
             ]
 
