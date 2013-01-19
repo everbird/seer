@@ -18,7 +18,7 @@ REDIS_STORE_PORT = 6379
 REDIS_CACHE_HOST = 'localhost'
 REDIS_CACHE_PORT = 7379
 
-VAR_PATH = os.path.expanduser('~/var')
+VAR_PATH = '/home/everbird/var'
 VAR_DIRS = ['log',
             'run',
             'tmp',
