@@ -7,6 +7,7 @@ import json
 import requests
 from datetime import datetime
 from urllib import urlencode
+from subprocess import Popen, PIPE
 
 from configs import config
 
@@ -41,9 +42,14 @@ def package(target=None, datenum=None, days=1):
 
         fname = 'daily-programs-%s.json.gz' % _datenum
         output_path = os.path.join(target, fname)
-        cmd = CMD_WGET_WITH_GZIP % (source, output_path)
-        _ = commands.getoutput(cmd)
-        print '[%s] done.'%i, output_path
+
+        p1 = Popen(['wget', '-O', '-', source], stdout=PIPE)
+        p2 = Popen(['gzip'], stdin=p1.stdout, stdout=PIPE)
+        _ = p2.communicate()[0]
+        with open(output_path, 'w') as o:
+            o.write(_)
+
+        print '[%s] done.'%i, output_path, len(_)
 
 def is_remote_ok(url):
     r = requests.get(url)
