@@ -7,7 +7,7 @@ class DefaultConfig(object):
 
     # --- SQLAlchemy ---
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://seer:burning@localhost/$DATABASE_NAME"
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
 
     # --- Redis ---
     REDIS_HOST = '$REDIS_STORE_HOST'
