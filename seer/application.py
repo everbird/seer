@@ -3,7 +3,7 @@
 
 import os
 
-from flask import Flask
+from flask import Flask, request
 from flask_admin.contrib import sqlamodel, fileadmin
 
 from configs import config
@@ -62,25 +62,48 @@ def configure_extensions(app):
     app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
     db.init_app(app)
 
-    admin.add_view(sqlamodel.ModelView(Program, db.session, category='Online'))
-    admin.add_view(sqlamodel.ModelView(Channel, db.session, category='Online'))
-    admin.add_view(sqlamodel.ModelView(CandidateProgram, db.session,
+    def check_auth(username, password):
+        return username == 'admin' and password == 'secret'
+
+    class AuthFileAdmin(fileadmin.FileAdmin):
+
+        def is_accessible(self):
+            auth = request.authorization
+            return auth and check_auth(auth.username, auth.password)
+
+
+    def _make_model_view(model_class, *args, **kwargs):
+
+        class AuthModelView(sqlamodel.ModelView):
+
+            def is_accessible(self):
+                auth = request.authorization
+                return auth and check_auth(auth.username, auth.password)
+
+        return AuthModelView(model_class, db.session, *args, **kwargs)
+
+    admin.add_view(_make_model_view(Program, endpoint='program',
+        category='Online'))
+    admin.add_view(_make_model_view(Channel, endpoint='channel',
+        category='Online'))
+    admin.add_view(_make_model_view(CandidateProgram,
+        endpoint='candidate_programe', category='Backend'))
+    admin.add_view(_make_model_view(Candidate, endpoint='candidate',
         category='Backend'))
-    admin.add_view(sqlamodel.ModelView(Candidate, db.session,
+    admin.add_view(_make_model_view(External, endpoint='external',
         category='Backend'))
-    admin.add_view(sqlamodel.ModelView(External, db.session,
-        category='Backend'))
-    admin.add_view(sqlamodel.ModelView(Mapping, db.session,
+    admin.add_view(_make_model_view(Mapping, endpoint='mapping',
         category='Mapping'))
-    admin.add_view(sqlamodel.ModelView(ProgramExtra, db.session,
+    admin.add_view(_make_model_view(ProgramExtra, endpoint='program_extra',
         category='Backend'))
-    admin.add_view(sqlamodel.ModelView(DoubanTopMovie, db.session,
-        category='Mapping'))
-    admin.add_view(sqlamodel.ModelView(DoubanMovie, db.session,
+    admin.add_view(_make_model_view(DoubanTopMovie,
+        endpoint='douban_top_movie', category='Mapping'))
+    admin.add_view(_make_model_view(DoubanMovie, endpoint='douban_movie',
         category='Mapping'))
     path = os.path.join(config.VAR_PATH, config.SITE_PORT,
             config.PACKAGE_FILES_PATH)
-    admin.add_view(fileadmin.FileAdmin(path, '/packages/', name='Package Files'))
+    admin.add_view(AuthFileAdmin(path, '/packages/', endpoint='packages',
+        name='Package Files'))
     admin.init_app(app)
     manager.init_app(app, flask_sqlalchemy_db=db)
     configure_api(manager)
