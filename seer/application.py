@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
+
 from flask import Flask
-from flask_admin.contrib import sqlamodel
+from flask_admin.contrib import sqlamodel, fileadmin
+
+from configs import config
 
 from seer import views
 from seer.config import DefaultConfig
@@ -66,6 +70,9 @@ def configure_extensions(app):
     admin.add_view(sqlamodel.ModelView(ProgramExtra, db.session))
     admin.add_view(sqlamodel.ModelView(DoubanTopMovie, db.session))
     admin.add_view(sqlamodel.ModelView(DoubanMovie, db.session))
+    path = os.path.join(config.VAR_PATH, config.SITE_PORT,
+            config.PACKAGE_FILES_PATH)
+    admin.add_view(fileadmin.FileAdmin(path, '/packages/', name='Static Files'))
     admin.init_app(app)
     manager.init_app(app, flask_sqlalchemy_db=db)
     configure_api(manager)

@@ -18,13 +18,14 @@ REDIS_STORE_PORT = 6379
 REDIS_CACHE_HOST = 'localhost'
 REDIS_CACHE_PORT = 7379
 
+PACKAGE_FILES_PATH = 'www/packages'
 VAR_PATH = '/home/everbird/var'
 VAR_DIRS = ['log',
             'run',
             'tmp',
             'data/redis/store',
             'data/redis/cache',
-            'www/packages',
+            PACKAGE_FILES_PATH,
             ]
 
 try:
