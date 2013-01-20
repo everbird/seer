@@ -61,18 +61,26 @@ def configure_app(app, config):
 def configure_extensions(app):
     app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
     db.init_app(app)
-    admin.add_view(sqlamodel.ModelView(Program, db.session))
-    admin.add_view(sqlamodel.ModelView(Channel, db.session))
-    admin.add_view(sqlamodel.ModelView(CandidateProgram, db.session))
-    admin.add_view(sqlamodel.ModelView(Candidate, db.session))
-    admin.add_view(sqlamodel.ModelView(External, db.session))
-    admin.add_view(sqlamodel.ModelView(Mapping, db.session))
-    admin.add_view(sqlamodel.ModelView(ProgramExtra, db.session))
-    admin.add_view(sqlamodel.ModelView(DoubanTopMovie, db.session))
-    admin.add_view(sqlamodel.ModelView(DoubanMovie, db.session))
+
+    admin.add_view(sqlamodel.ModelView(Program, db.session, category='Online'))
+    admin.add_view(sqlamodel.ModelView(Channel, db.session, category='Online'))
+    admin.add_view(sqlamodel.ModelView(CandidateProgram, db.session,
+        category='Backend'))
+    admin.add_view(sqlamodel.ModelView(Candidate, db.session,
+        category='Backend'))
+    admin.add_view(sqlamodel.ModelView(External, db.session,
+        category='Backend'))
+    admin.add_view(sqlamodel.ModelView(Mapping, db.session,
+        category='Mapping'))
+    admin.add_view(sqlamodel.ModelView(ProgramExtra, db.session,
+        category='Backend'))
+    admin.add_view(sqlamodel.ModelView(DoubanTopMovie, db.session,
+        category='Mapping'))
+    admin.add_view(sqlamodel.ModelView(DoubanMovie, db.session,
+        category='Mapping'))
     path = os.path.join(config.VAR_PATH, config.SITE_PORT,
             config.PACKAGE_FILES_PATH)
-    admin.add_view(fileadmin.FileAdmin(path, '/packages/', name='Static Files'))
+    admin.add_view(fileadmin.FileAdmin(path, '/packages/', name='Package Files'))
     admin.init_app(app)
     manager.init_app(app, flask_sqlalchemy_db=db)
     configure_api(manager)
