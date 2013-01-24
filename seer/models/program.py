@@ -90,3 +90,12 @@ class Program(db.Model):
                 .filter_by(channel_id=self.channel_id)\
                 .filter_by(start_dt=self.start_dt)\
                 .first()
+
+    def conflict_programs(self):
+        return db.session.query(Program)\
+                .filter_by(channel_id=self.channel_id)\
+                .filter(db.or_(
+                    db.and_(Program.start_dt<self.start_dt, Program.end_dt>self.start_dt),
+                    db.and_(Program.start_dt<self.end_dt, Program.end_dt>self.end_dt)
+                    ))\
+                .all()
