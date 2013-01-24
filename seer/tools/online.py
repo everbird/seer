@@ -28,6 +28,10 @@ def online(datenum=None, days=7):
 
 def online_by_channel(channel, datenum):
     print datenum, 'Updating:', channel.name.encode('utf8'),
+    db.session.query(Program)\
+            .filter_by(channel_id=channel.id)\
+            .filter_by(datenum=datenum)\
+            .delete()
 
     candidates = db.session.query(Candidate) \
             .order_by(Candidate.id) \
@@ -38,16 +42,8 @@ def online_by_channel(channel, datenum):
     if not programs:
         print 'no candidate program for ', channel.name.encode('utf8')
 
-    # Only update or add to make id consistent.
     for p in programs:
-        _p = p.exist_one()
-        if _p:
-            for a in ('name', 'length', 'datenum', 'channel_id',
-                    'candidate_id', 'start_dt', 'end_dt'):
-                setattr(_p, a, getattr(p, a))
-            db.session.add(_p)
-        else:
-            db.session.add(p)
+        db.session.add(p)
     db.session.commit()
 
 def get_programs(candidates, channel_id, datenum):
