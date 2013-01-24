@@ -80,7 +80,6 @@ class CandidateProgram(db.Model):
         total_secs = delta.total_seconds()
         pid = '%s-%s-%s' % (self.datenum, self.channel_id,
                 hex(int(total_secs)))
-        print 'pid', pid
         return Program(
                 pid=pid,
                 name=self.name,
