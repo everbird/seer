@@ -70,7 +70,7 @@ class Program(db.Model):
     query_class = ProgramQuery
 
     id = db.Column(db.Integer, primary_key=True)
-    pid = db.Column(db.Integer, nullable=False)
+    pid = db.Column(db.Unicode(100), nullable=False)
     channel_id = db.Column(db.Integer, db.ForeignKey('channel.id'))
     candidate_id = db.Column(db.Integer, db.ForeignKey('candidate.id'))
     name = db.Column(db.Unicode(100), server_default='', nullable=False)
@@ -89,8 +89,7 @@ class Program(db.Model):
 
     def exist_one(self):
         return db.session.query(Program)\
-                .filter_by(channel_id=self.channel_id)\
-                .filter_by(start_dt=self.start_dt)\
+                .filter_by(pid=self.pid)\
                 .first()
 
     def conflict_programs(self):

@@ -75,8 +75,14 @@ class CandidateProgram(db.Model):
         return db.session.query(Channel).filter(Channel.id==self.channel_id)
 
     def as_program(self):
+        delta = (self.start_dt - datetime(1970, 1, 1,
+            tzinfo=self.start_dt.tzinfo))
+        total_secs = delta.total_seconds()
+        pid = '%s-%s-%s' % (self.datenum, self.channel_id,
+                hex(int(total_secs)))
+        print 'pid', pid
         return Program(
-                pid=hex(int(time.time())),
+                pid=pid,
                 name=self.name,
                 length=self.length,
                 datenum=self.datenum,
