@@ -1,6 +1,7 @@
 # seer.models.candidate
 # -*- coding: utf-8 -*-
 
+import time
 from datetime import datetime
 
 from seer.extensions import db
@@ -75,6 +76,7 @@ class CandidateProgram(db.Model):
 
     def as_program(self):
         return Program(
+                pid=hex(int(time.time())),
                 name=self.name,
                 length=self.length,
                 datenum=self.datenum,

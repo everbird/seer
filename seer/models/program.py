@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
+import time
 
 from flask_sqlalchemy import BaseQuery
 
@@ -69,6 +70,7 @@ class Program(db.Model):
     query_class = ProgramQuery
 
     id = db.Column(db.Integer, primary_key=True)
+    pid = db.Column(db.Integer, nullable=False)
     channel_id = db.Column(db.Integer, db.ForeignKey('channel.id'))
     candidate_id = db.Column(db.Integer, db.ForeignKey('candidate.id'))
     name = db.Column(db.Unicode(100), server_default='', nullable=False)
