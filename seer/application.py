@@ -35,6 +35,7 @@ DEFAULT_APP_NAME = "seer"
 
 DEFAULT_MODULES = (
     (views.frontend, ""),
+    (views.api, "/api")
 )
 
 def create_app(config=None, app_name=None, modules=None):
