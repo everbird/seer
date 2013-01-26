@@ -9,9 +9,9 @@ def program_entry(program):
             channel=channel_entry(program.channel),
             length=program.length,
             datenum=program.datenum,
-            start_dt=program.start_dt,
-            end_dt=program.end_dt,
-            update_dt=program.update_dt,
+            start_dt=datetime_entry(program.start_dt),
+            end_dt=datetime_entry(program.end_dt),
+            update_dt=datetime_entry(program.update_dt),
             )
 
 def channel_entry(channel):
@@ -20,3 +20,6 @@ def channel_entry(channel):
             id=channel.id,
             name=channel.name
             )
+
+def datetime_entry(dt):
+    return dt.isoformat()
