@@ -122,7 +122,7 @@ def configure_api(manager):
     manager.create_api(Channel, methods=['GET'], results_per_page=None,
             exclude_columns=['programs', 'external', 'candidate',
                 'candidate_id'])
-    manager.create_api(User, methods=['GET', 'POST', 'PUT'])
+    manager.create_api(User, methods=['POST', 'PUT', 'PATCH'])
 
 def configure_statics(app):
     if app.config['DEBUG']:
