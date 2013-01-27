@@ -28,6 +28,7 @@ from seer.models.external import External
 from seer.models.mapping import Mapping
 from seer.models.extra import ProgramExtra
 from seer.models.douban import DoubanTopMovie, DoubanMovie
+from seer.models.user import User
 
 __all__ = ['create_app']
 
@@ -101,6 +102,9 @@ def configure_extensions(app):
         endpoint='douban_top_movie', category='Mapping'))
     admin.add_view(_make_model_view(DoubanMovie, endpoint='douban_movie',
         category='Mapping'))
+    admin.add_view(_make_model_view(User,
+        endpoint='user', category='User'))
+
     path = os.path.join(config.VAR_PATH, config.SITE_PORT,
             config.PACKAGE_FILES_PATH)
     admin.add_view(AuthFileAdmin(path, '/packages/', endpoint='packages',
@@ -118,6 +122,7 @@ def configure_api(manager):
     manager.create_api(Channel, methods=['GET'], results_per_page=None,
             exclude_columns=['programs', 'external', 'candidate',
                 'candidate_id'])
+    manager.create_api(User, methods=['GET', 'POST', 'PUT'])
 
 def configure_statics(app):
     if app.config['DEBUG']:
