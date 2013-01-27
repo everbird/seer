@@ -9,6 +9,7 @@ from seer.extensions import db
 class User(db.Model):
     __tablename__ = 'user'
     __table_args__ = (
+            db.UniqueConstraint('douban_id'),
             dict(
                 mysql_engine='InnoDB',
                 mysql_charset='utf8',
