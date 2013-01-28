@@ -28,7 +28,7 @@ from seer.models.external import External
 from seer.models.mapping import Mapping
 from seer.models.extra import ProgramExtra
 from seer.models.douban import DoubanTopMovie, DoubanMovie
-from seer.models.user import User
+from seer.models.user import User, UserDevice
 
 __all__ = ['create_app']
 
@@ -104,6 +104,8 @@ def configure_extensions(app):
         category='Mapping'))
     admin.add_view(_make_model_view(User,
         endpoint='user', category='User'))
+    admin.add_view(_make_model_view(UserDevice,
+        endpoint='user_device', category='User'))
 
     path = os.path.join(config.VAR_PATH, config.SITE_PORT,
             config.PACKAGE_FILES_PATH)
