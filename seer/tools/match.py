@@ -4,6 +4,7 @@
 import difflib
 import hammock
 import re
+import time
 from operator import itemgetter
 
 from seer.application import db
@@ -33,15 +34,19 @@ def match_name(name):
 
     movie_tuples = []
     if r.status_code == 200:
-        infos = r.json['movies']
+        infos = r.json['subjects']
         for i in infos:
-            title = i['title'].encode('utf8')
             douban_movie_id = i['id']
-            douban_movie_id = extract_id(douban_movie_id)
-            alt_title = i['alt_title'].encode('utf8')
-            rating_num = i['rating']['numRaters']
+            sr = client.v2.movie.subject(douban_movie_id).GET(
+                    params=dict(apikey=API_KEY)
+                    )
+            time.sleep(0.2)
+            info = sr.json
+            title = info.get('title', '').encode('utf8')
+            alt_titles = info.get('aka', [])
+            rating_num = info.get('ratings_count', 0)
             movie_tuples.append((title, douban_movie_id, rating_num))
-            alt_titles = alt_title.split('/')
+            alt_titles = map(lambda x: x.encode('utf8'), alt_titles)
             for at in alt_titles:
                 at = at.strip()
                 movie_tuples.append((at, douban_movie_id, rating_num))
@@ -54,12 +59,15 @@ def match_name(name):
         movie_tuples = sorted(movie_tuples,
                 key=itemgetter(3, 2),
                 reverse=True)
+    else:
+        print r.status_code, r.content
 
     # title, id, rating_num, ratio
     return movie_tuples
 
 def get_matching_douban_movie_id(name):
     movie_tuples = match_name(name)
+    print 'map:', name, len(movie_tuples)
     if movie_tuples:
 
         for title, douban_movie_id, rating_num, ratio, ratio_r in movie_tuples:
