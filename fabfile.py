@@ -10,6 +10,7 @@ def update():
     puts('Update seer...')
     with cd('/home/everbird/product/seer'):
         run('git pull')
+        vrun('make create_db')
         run('/home/everbird/.virtualenvs/seer/bin/pip install -r requirements.txt')
         run('/home/everbird/.virtualenvs/seer/bin/supervisorctl restart web')
     puts('Updated')
