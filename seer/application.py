@@ -125,6 +125,7 @@ def configure_api(manager):
             exclude_columns=['programs', 'external', 'candidate',
                 'candidate_id'])
     manager.create_api(User, methods=['GET', 'POST', 'PUT', 'PATCH'])
+    manager.create_api(UserDevice, methods=['GET', 'POST', 'PUT', 'PATCH'])
 
 def configure_statics(app):
     if app.config['DEBUG']:
