@@ -14,63 +14,75 @@ html
       }
       .col3 { width: 400px }
       .col10 { width: 500px }
+      section .hd {
+        position: relative;
+        border-bottom: 1px solid #DDDDDD;
+        color: #333333;
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+      }
+      .program-list .item {
+        border-bottom: 1px solid #EEEEEE;
+        margin-bottom: 1px;
+        overflow: hidden;
+        padding: 10px 0;
+      }
+      .program-list .title {
+        color: #000000;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        width: 22em;
+        word-wrap: break-word;
+      }
+      .cover {
+          float: left;
+          margin-right: 13px;
+          width: 90px;
+      }
 
   body
     .main
       aside.col.col3
-        h1.title 豆瓣Top250电影
-        ul
-          {% for movie in top250_movies %}
-          douban_movie = movie.extra.douban_top_movie
-          pic_url = douban_movie.pic_url
-          large_pic_url = douban_movie.large_pic_url
-          movie_id = movie.extra.douban_movie_id
-          li
-            .links
-              a(href='http://movie.douban.com/subject/#{ movie_id }/')
-                img(src='#{ pic_url }')
-              a(href='http://movie.douban.com/subject/#{ movie_id }/', target='_blank')
-                {{ movie.name }}
-            .program
-              span: {{ movie.start_dt.strftime('%Y-%m-%d %H:%M') }}
-              span: {{ movie.end_dt.strftime('%Y-%m-%d %H:%M') }}
-              span: {{ movie.length }}
-              span: {{ movie.channel.name }}
-            .douban-info
-              span: {{ douban_movie.rating }}
-              span: {{ douban_movie.rate_num }}
-            .top250
-              span: {{ douban_movie.rank }}
-              span: {{ douban_movie.year}}
-              span: {{ douban_movie.credits}}
-              span: {{ douban_movie.region }}
-              span: {{ douban_movie.tip }}
-          {% endfor %}
+        section
+          .hd
+            span This is heading
 
-        div
-          h1.title 豆瓣7分以上电影
-          ul
-            {% for movie in mapped_movies %}
-            {% set douban_movie = movie.extra.douban_mapped_movie %}
-            {% set pic_url = douban_movie.pic_url %}
-            {% set movie_id = movie.extra.douban_movie_id %}
-            li
-              .links
-                a(href='http://movie.douban.com/subject/#{ movie_id }/')
-                  img(src='#{ pic_url }')
-                a(href='http://movie.douban.com/subject/#{ movie_id }/', target='_blank')
-                  {{ movie.name }}
-              .program
-                span: {{ movie.start_dt.strftime('%Y-%m-%d %H:%M') }}
-                span: {{ movie.end_dt.strftime('%Y-%m-%d %H:%M') }}
-                span: {{ movie.length }}
-                span: {{ movie.channel.name }}
-              .douban-info
-                span: {{ douban_movie.rating }}
-                span: {{ douban_movie.rate_num }}
+          .bd
+            ul.list-lined.program-list
+              {% for pid, p in id_programs.iteritems() %}
+              categories = program_categories[pid]
+              douban_movie = p.extra.douban_top_movie if 'top250' in categories else p.extra.douban_mapped_movie
+              pic_url = douban_movie.pic_url
+              large_pic_url = douban_movie.large_pic_url
+              movie_id = p.extra.douban_movie_id
+              li.item
+                .cover
+                  a(href='http://movie.douban.com/subject/#{ movie_id }/')
+                    img(src='#{ pic_url }')
+                .info
+                  .title
+                    a(href='http://movie.douban.com/subject/#{ movie_id }/', target='_blank')
+                      {{ p.name }}
+                  .date
+                    span: {{ p.start_dt.strftime('%Y-%m-%d') }}
+                    span: {{ p.start_dt.strftime('%H:%M') }}
+                    -
+                    span: {{ p.end_dt.strftime('%H:%M') }}
+                    span: {{ p.length }}
+                    span: {{ p.channel.name }}
+                  .douban-info
+                    span: {{ douban_movie.rating }}
+                    span: {{ douban_movie.rate_num }}
+                  .top250
+                    span: {{ douban_movie.rank }}
+                    span: {{ douban_movie.year}}
+                    span: {{ douban_movie.region }}
+                    p: {{ douban_movie.tip }}
+              {% endfor %}
 
-            {% endfor %}
       article.co.col10
         This is article mod
+
       footer
         This is footer mod

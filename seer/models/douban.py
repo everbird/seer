@@ -19,6 +19,7 @@ class DoubanTopMovie(db.Model):
     rating = db.Column(db.Unicode(10), server_default='')
     rate_num = db.Column(db.Integer)
     pic_url = db.Column(db.Unicode(200), server_default='')
+
     rank = db.Column(db.Integer)
     year = db.Column(db.Integer)
     credits = db.Column(db.Unicode(200), server_default='')
@@ -31,6 +32,9 @@ class DoubanTopMovie(db.Model):
     def large_pic_url(self):
         return self.pic_url.replace('spic', 'lpic')
 
+    @property
+    def medium_pic_url(self):
+        return self.pic_url.replace('spic', 'mpic')
 
 class DoubanMovie(db.Model):
     __tablename__ = 'douban_movie'
@@ -52,3 +56,7 @@ class DoubanMovie(db.Model):
     @property
     def large_pic_url(self):
         return self.pic_url.replace('spic', 'lpic')
+
+    @property
+    def medium_pic_url(self):
+        return self.pic_url.replace('spic', 'mpic')
