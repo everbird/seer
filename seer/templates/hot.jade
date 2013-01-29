@@ -35,6 +35,10 @@ html
         width: 22em;
         word-wrap: break-word;
       }
+      .program-list div, p {
+        font-size: 12px;
+        padding: 2px 0;
+      }
       .cover {
           float: left;
           margin-right: 13px;
@@ -69,16 +73,17 @@ html
                     span: {{ p.start_dt.strftime('%H:%M') }}
                     -
                     span: {{ p.end_dt.strftime('%H:%M') }}
+                  .douban-info
+                    span: {{ '|'.join(categories) }}
                     span: {{ p.length }}
                     span: {{ p.channel.name }}
-                  .douban-info
                     span: {{ douban_movie.rating }}
                     span: {{ douban_movie.rate_num }}
                   .top250
                     span: {{ douban_movie.rank }}
                     span: {{ douban_movie.year}}
                     span: {{ douban_movie.region }}
-                    p: {{ douban_movie.tip }}
+                  p.tip: {{ douban_movie.tip }}
               {% endfor %}
 
       article.co.col10
