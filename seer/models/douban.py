@@ -27,6 +27,10 @@ class DoubanTopMovie(db.Model):
 
     __repr__ = gen_repr(props=['name', 'douban_movie_id', 'rank'])
 
+    @property
+    def large_pic_url(self):
+        return self.pic_url.replace('spic', 'lpic')
+
 
 class DoubanMovie(db.Model):
     __tablename__ = 'douban_movie'
@@ -44,3 +48,7 @@ class DoubanMovie(db.Model):
     pic_url = db.Column(db.Unicode(200), server_default='')
 
     __repr__ = gen_repr(props=['name', 'douban_movie_id', 'rating'])
+
+    @property
+    def large_pic_url(self):
+        return self.pic_url.replace('spic', 'lpic')
