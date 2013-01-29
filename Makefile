@@ -101,3 +101,10 @@ gen: build_var
 
 gen_clean:
 	@./gen.py clean
+
+dump:
+	mysqldump -useer -pburning seer_d > `./manage.py var_dir`/data/backup-file.sql
+
+import_dump:
+	mysql -useer -pburning -Dseer_d < `./manage.py var_dir`/data/backup-file.sql
+
