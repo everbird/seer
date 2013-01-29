@@ -16,7 +16,7 @@ def update():
         run('/home/everbird/.virtualenvs/seer/bin/supervisorctl restart web')
     puts('Updated')
 
-def vrun(cmd, env='seer'):
+def vrun(cmd, env='product-seer'):
     remote_cmd = "/bin/bash -l -c 'source /usr/bin/virtualenvwrapper.sh" \
         + " && workon " + env \
         + " && " + cmd + "'"
