@@ -68,8 +68,7 @@ def gen():
 
 @hosts('rainbow')
 def dumpdata():
-    import watchdog
     puts('Dumping date from remote...')
     vrun('make dump')
-    local('scp rainbow:/home/everbird/var/8100/data/backup-file.sql %s', watchdog.var_dir()+'/data/')
+    local('scp rainbow:/home/everbird/var/8100/data/backup-file.sql /home/everbird/var/8000/data/')
     local('make import_dump')
