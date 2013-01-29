@@ -2,8 +2,6 @@ from fabric.api import hosts, run, cd
 from fabric.operations import local
 from fabric.utils import puts
 
-import watchdog
-
 @hosts('rainbow')
 def host_type():
     run('uname -s')
@@ -70,6 +68,7 @@ def gen():
 
 @hosts('rainbow')
 def dumpdata():
+    import watchdog
     puts('Dumping date from remote...')
     vrun('make dump')
     local('scp rainbow:/home/everbird/var/8100/data/backup-file.sql %s', watchdog.var_dir()+'/data/')
