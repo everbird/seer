@@ -7,7 +7,7 @@ Flask-And-Redis==0.4
 Flask-Cache==0.10.1
 gunicorn==0.14.6
 greenlet==0.4
-pyjade==1.7
+pyjade==1.9
 supervisor==3.0a12
 pyinotify==0.9.3
 gevent==0.13.7
