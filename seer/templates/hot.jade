@@ -58,7 +58,6 @@ html
               categories = program_categories[pid]
               douban_movie = p.extra.douban_top_movie if 'top250' in categories else p.extra.douban_mapped_movie
               pic_url = douban_movie.pic_url
-              large_pic_url = douban_movie.large_pic_url
               movie_id = p.extra.douban_movie_id
               li.item
                 .cover
@@ -87,7 +86,16 @@ html
               {% endfor %}
 
       article.co.col10
-        This is article mod
+        current =  id_programs.values()[0]
+        current_mid = current.extra.douban_movie_id
+        large_pic_url = current.large_pic_url
+        .detail
+          .cover
+            a(href='http://movie.douban.com/subject/#{ current_mid }/')
+              img(src='#{ large_pic_url }')
+
+          .info
+            {{ current.name }}
 
       footer
-        This is footer mod
+        span This is footer mod
