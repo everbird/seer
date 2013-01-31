@@ -50,7 +50,7 @@ def online_by_channel(channel, datenum):
             # Clear up the confilt programs
             conflict_programs = p.conflict_programs()
             for cp in conflict_programs:
-                cp.delete()
+                db.session.delete(cp)
             db.session.add(p)
     db.session.commit()
 
