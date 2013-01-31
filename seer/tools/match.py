@@ -42,6 +42,11 @@ def match_name(name):
                     )
             time.sleep(0.2)
             info = sr.json
+            subtype = info['subtype']
+
+            if subtype != 'movie':
+                continue
+
             title = info.get('title', '').encode('utf8')
             alt_titles = info.get('aka', [])
             rating_num = info.get('ratings_count', 0)
