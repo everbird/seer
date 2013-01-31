@@ -56,7 +56,7 @@ html
             ul.list-lined.program-list
               {% for pid, p in id_programs.iteritems() %}
               categories = program_categories[pid]
-              douban_movie = p.extra.douban_top_movie if 'top250' in categories else p.extra.douban_mapped_movie
+              douban_movie = p.extra.douban_mapped_movie
               pic_url = douban_movie.pic_url
               movie_id = p.extra.douban_movie_id
               li.item
@@ -78,24 +78,32 @@ html
                     span: {{ p.channel.name }}
                     span: {{ douban_movie.rating }}
                     span: {{ douban_movie.rate_num }}
+                  {% if 'top250' in categories: %}
+                  top_movie = p.extra.douban_top_movie
                   .top250
-                    span: {{ douban_movie.rank }}
-                    span: {{ douban_movie.year}}
-                    span: {{ douban_movie.region }}
-                  p.tip: {{ douban_movie.tip }}
+                    span: {{ top_movie.rank }}
+                    span: {{ top_movie.year}}
+                    span: {{ top_movie.region }}
+                  p.tip: {{ top_movie.tip }}
+                  {% endif %}
               {% endfor %}
 
       article.co.col10
-        current =  id_programs.values()[0]
-        current_mid = current.extra.douban_movie_id
-        large_pic_url = current.large_pic_url
+        current_program = id_programs.values()[0]
+        current_movie = current_program.extra.douban_mapped_movie
+        current_mid = current_movie.douban_movie_id
+        large_pic_url = current_movie.large_pic_url
         .detail
           .cover
             a(href='http://movie.douban.com/subject/#{ current_mid }/')
               img(src='#{ large_pic_url }')
 
           .info
-            {{ current.name }}
+            span: {{ current_movie.name }}
+            span: {{ current_movie.douban_movie_id }}
+            span: {{ current_movie.rate_num }}
+            span: {{ current_movie.rating }}
+            span: {{ current_movie.pic_url }}
 
       footer
         span This is footer mod
