@@ -21,7 +21,7 @@ class DefaultConfig(object):
 
     # --- Bootstrap ---
     BOOTSTRAP_USE_MINIFIED = True
-    BOOTSTRAP_USE_CDN = True
+    BOOTSTRAP_USE_CDN = False
     BOOTSTRAP_FONTAWESOME = True
     SECRET_KEY = 'devkey'
     RECAPTCHA_PUBLIC_KEY = 'fake'
