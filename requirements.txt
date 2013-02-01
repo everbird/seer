@@ -5,6 +5,7 @@ Flask-Admin==1.0.4
 Flask-Restless==0.7.0
 Flask-And-Redis==0.4
 Flask-Cache==0.10.1
+Flask-Bootstrap==2.2.2-1
 gunicorn==0.14.6
 greenlet==0.4
 pyjade==1.9
