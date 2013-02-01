@@ -7,7 +7,7 @@ Flask-And-Redis==0.4
 Flask-Cache==0.10.1
 Flask-Bootstrap==2.2.2-1
 Flask-WTF==0.8.2
-gunicorn==0.14.6
+gunicorn==0.17.2
 greenlet==0.4
 pyjade==1.9
 supervisor==3.0a12
