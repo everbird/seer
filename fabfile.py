@@ -11,9 +11,9 @@ def update():
     puts('Update seer...')
     with cd('/home/everbird/product/seer'):
         run('git pull')
+        run('/home/everbird/.virtualenvs/product-seer/bin/pip install -r requirements.txt')
         vrun('make create_db')
-        run('/home/everbird/.virtualenvs/seer/bin/pip install -r requirements.txt')
-        run('/home/everbird/.virtualenvs/seer/bin/supervisorctl restart web')
+        run('/home/everbird/.virtualenvs/product-seer/bin/supervisorctl restart web')
     puts('Updated')
 
 def vrun(cmd, env='product-seer'):
