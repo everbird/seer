@@ -2,13 +2,16 @@
 # -*- coding: utf-8 -*-
 
 from collections import defaultdict, OrderedDict
-from datetime import datetime
 
 from flask import Module, render_template as rt
 
 from seer.models.program import Program
 
 frontend = Module(__name__)
+
+@frontend.route('/test')
+def test():
+    return rt('base.jade')
 
 @frontend.route('/')
 def index():
