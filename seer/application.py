@@ -20,7 +20,7 @@ except ImportError, e:
         # the ImportError is raised inside local_config
         raise
 
-from seer.extensions import db, admin, manager
+from seer.extensions import db, admin, manager, bootstrap
 from seer.models.program import Program
 from seer.models.channel import Channel
 from seer.models.candidate import Candidate, CandidateProgram
@@ -63,6 +63,7 @@ def configure_app(app, config):
 def configure_extensions(app):
     app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
     db.init_app(app)
+    bootstrap.init_app(app)
 
     def check_auth(username, password):
         return username == 'admin' and password == 'secret'
