@@ -12,6 +12,7 @@ def update():
     with cd('/home/everbird/product/seer'):
         run('git pull')
         run('/home/everbird/.virtualenvs/product-seer/bin/pip install -r requirements.txt')
+        vrun('python gen.py product')
         vrun('make create_db')
         run('/home/everbird/.virtualenvs/product-seer/bin/supervisorctl restart web')
     puts('Updated')
