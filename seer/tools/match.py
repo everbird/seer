@@ -119,6 +119,10 @@ def update_unresolved_names():
     for n in names:
         douban_movie_id = get_matching_douban_movie_id(n)
         if douban_movie_id:
+            db.session.query(Mapping) \
+                    .filter(Mapping.name==n) \
+                    .filter(Mapping.douban_movie_id==douban_movie_id) \
+                    .delete()
             m = Mapping(
                     name=n,
                     douban_movie_id=douban_movie_id,
