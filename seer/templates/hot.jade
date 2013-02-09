@@ -89,6 +89,7 @@ html
               {% endfor %}
 
       article.co.col10
+        {% if id_programs: %}
         current_program = id_programs.values()[0]
         current_movie = current_program.extra.douban_mapped_movie
         current_mid = current_movie.douban_movie_id
@@ -104,6 +105,7 @@ html
             span: {{ current_movie.rate_num }}
             span: {{ current_movie.rating }}
             span: {{ current_movie.pic_url }}
+        {% endif %}
 
       footer
         span This is footer mod

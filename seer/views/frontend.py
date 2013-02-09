@@ -11,7 +11,7 @@ frontend = Module(__name__)
 
 @frontend.route('/test')
 def test():
-    return rt('base.jade')
+    return rt('test.jade')
 
 @frontend.route('/')
 def index():
