@@ -42,7 +42,7 @@ def match_name(name):
                     )
             time.sleep(0.2)
             info = sr.json
-            subtype = info['subtype']
+            subtype = info.get('subtype')
 
             if subtype != 'movie':
                 continue
